@@ -6,15 +6,4 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-        <?php if ($isAuth) : ?>
-            <button onclick="location.href='<?= SERVER_NAME ?>login'" class="btn btn-outline-danger" type="button">
-                Login out
-            </button>
-        <?php else: ?>
-            <button onclick="location.href='<?= SERVER_NAME ?>login'" class="btn btn-outline-danger" type="button">
-                Login in
-            </button>
-        <?php endif; ?>
-    </div>
 </nav>

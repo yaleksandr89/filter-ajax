@@ -2,7 +2,7 @@
 function db_connect()
 {
     $db_host = 'localhost';
-    $db_name = 'ajax_filter';
+    $db_name = 'ajax-filter';
     $db_charset = 'utf8';
     $db_user = 'root';
     $db_password = 'buLDog89!';

@@ -2,14 +2,13 @@
 declare(strict_types=1);
 
 // Validation ot the controller
-function checkController(string $controller)
+function checkController(string $controller): int
 {
-    return (preg_match('/^[a-zA-Z0-9_]+$/', $controller));
-    //return (preg_match('~^\w+$~', $controller));
+    return (preg_match('~^\w+$~', $controller));
 }
 
 // Only: numbers, latin letters and -
-function checkTitle($title)
+function checkTitle(string $title): int
 {
     return preg_match('~^[a-z0-9_\-]*$~i', $title);
 }
@@ -28,7 +27,7 @@ function prepareExternalLink(string $link)
     try {
         $result = trim($link);
         $result = htmlspecialchars($result);
-        if (filter_var($result, FILTER_VALIDATE_URL) === false && $result !== '') {
+        if (filter_var($result !== '' && $result, FILTER_VALIDATE_URL) === false) {
             throw new \RuntimeException("Ошибка! Некорректно указан url, повторите ввод. Пользователь (IP: {$_SERVER['REMOTE_ADDR']}) ввел в поле: [{$link}]");
         }
         return $result;

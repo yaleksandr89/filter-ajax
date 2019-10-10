@@ -44,11 +44,3 @@ function redirect_404()
     require_once('assets/404/index.php');
     exit;
 }
-
-function redirect_403()
-{
-    header('HTTP/1.1 403 FORBIDDEN');
-    header('Status: 403 You Do Not Have Access To This Page');
-    require_once('assets/403/index.php');
-    exit;
-}

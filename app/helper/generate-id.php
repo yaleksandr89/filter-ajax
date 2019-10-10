@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 function generateId(string $string = '', int $len = 8): string
 {
     $letters = array_merge(range('a', 'z'), range('A', 'Z'), range(0, 9));

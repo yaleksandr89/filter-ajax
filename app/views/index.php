@@ -23,7 +23,6 @@
     <meta name="theme-color" content="#ffffff">
     <!-- realfavicongenerator END-->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/fonts/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
     <title><?= $title ?></title>
 </head>
@@ -35,7 +34,7 @@
     <div class="row h-100 align-items-center">
         <div class="col-md-12">
             <h1 class="text-center mt-3 mb-3 animate-txt"><?= $title ?></h1>
-            <?= $urlShortener ?>
+            <?= $ajaxFilter ?>
         </div>
     </div>
 </div>

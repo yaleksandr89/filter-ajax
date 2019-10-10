@@ -1,27 +1,29 @@
 <?php
 require_once('app/helper/system.php');
 require_once('app/helper/verify.php');
+require_once('app/helper/timer.php');
+require_once('app/helper/get-tmp-name.php');
 
-//session_start();
-$err404 = false;
+session_start();
 $controller = trim($get_tpl[0] ?? 'main');
 
 // Connecting necessary controller
-if ($controller === '' || !file_exists("app/controllers/{$controller}.php") || checkController('app/controllers/' . "{$controller}.php")) {
-    $err404 = true;
-    exit('err404 = true');
-} else {
+try {
+    if ($controller === '' || !file_exists("app/controllers/{$controller}.php") || checkController('app/controllers/' . "{$controller}.php")) {
+        throw new \RuntimeException('Ошибка при подключении: [' . getTemplateName() . ']');
+    }
     include 'app/controllers/' . "{$controller}.php";
-}
 
-//if ($err404) {
-//    redirect_404();
-//}
+} catch (Exception $exception) {
+    file_put_contents(__DIR__ . '/logs/Errors_system.txt',
+        date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL, FILE_APPEND);
+    redirect_404();
+}
 
 // Формирование страницы
 echo viewsConnect('index.php', [
     'title' => $title,
     'navBar' => $navBar,
-    'urlShortener'=>$urlShortener,
+    'ajaxFilter' => $ajaxFilter,
     //'infoBlock' => $infoBlock
 ]);
