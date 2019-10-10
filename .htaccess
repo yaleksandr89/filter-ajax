@@ -1,0 +1,27 @@
+Options All -Indexes
+
+RewriteEngine on
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule .* index.php?get_tpl=$0 [QSA]
+
+RewriteRule ^([a-zA-Z0-9]+)$ /app/controllers/redirect.php?key=$1
+
+#<FilesMatch "\.(php|twig|log|cache)$">
+#Deny from all
+#</FilesMatch>
+
+#<FilesMatch "index.php|403.php$">
+#Allow from all
+#</FilesMatch>
+
+
+#RewriteEngine On
+#RewriteBase /
+
+
+#ErrorDocument 403 http://%{HTTP_HOST}/403
+#ErrorDocument 404 http://%{HTTP_HOST}/404
