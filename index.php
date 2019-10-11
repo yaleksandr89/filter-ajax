@@ -12,18 +12,19 @@ try {
     if ($controller === '' || !file_exists("app/controllers/{$controller}.php") || checkController('app/controllers/' . "{$controller}.php")) {
         throw new \RuntimeException('Ошибка при подключении: [' . getTemplateName() . ']');
     }
-    include 'app/controllers/' . "{$controller}.php";
-
+    require_once('app/controllers/' . "{$controller}.php");
 } catch (Exception $exception) {
     file_put_contents(__DIR__ . '/logs/Errors_system.txt',
         date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL, FILE_APPEND);
     redirect_404();
 }
+$infoBlock = viewsConnect('info-block.php', [
+    'infoBlock' => $_POST['product_info_error'] ?? null
+]);
 
-// Формирование страницы
+// The formation of the page
 echo viewsConnect('index.php', [
     'title' => $title,
-    'navBar' => $navBar,
+    'navigationMenu' => $navigationMenu,
     'ajaxFilter' => $ajaxFilter,
-    //'infoBlock' => $infoBlock
 ]);

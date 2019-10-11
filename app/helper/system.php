@@ -31,7 +31,6 @@ if ($get_tpl[$lastElement] === '') {
 function viewsConnect(string $view_name, array $tpl = [])
 {
     extract($tpl, EXTR_OVERWRITE);
-    // Data buffering
     ob_start();
     include("app/views/{$view_name}");
     return ob_get_clean();
