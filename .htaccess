@@ -4,10 +4,10 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* index.php?get_tpl=$0 [QSA]
 
-<FilesMatch "\.(php)$">
-	Deny from all
-</FilesMatch>
+#<FilesMatch "\.(php)$">
+#	Deny from all
+#</FilesMatch>
 
-<FilesMatch "index.(php)$">
+<FilesMatch "index.(php)|ajax-filter.php|main.php|database.php$">
 	Allow from all
 </FilesMatch>

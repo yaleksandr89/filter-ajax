@@ -27,13 +27,13 @@
     <title><?= $title ?></title>
 </head>
 <body class="h-100">
-<header class="z-index-2">
-    <?= $navBar ?>
+<header>
+    <?= $navigationMenu ?>
 </header>
 <div class="container h-100">
     <div class="row h-100 align-items-center">
         <div class="col-md-12">
-            <h1 class="text-center mt-3 mb-3 animate-txt"><?= $title ?></h1>
+            <h1 class="animate-txt text-center"><?= $title ?></h1>
             <?= $ajaxFilter ?>
         </div>
     </div>
@@ -41,6 +41,6 @@
 <script src="/assets/js/jquery-3.4.1.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
-<script src="/assets/js/custom.js"></script>
+<script src="/assets/js/ajax.js"></script>
 </body>
 </html>
