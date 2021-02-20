@@ -1,3 +1,5 @@
+app/models/database.php
+
 .idea/
 # Created by https://www.gitignore.io/api/linux,windows,phpstorm
 # Edit at https://www.gitignore.io/?templates=linux,windows,phpstorm

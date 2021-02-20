@@ -1,11 +1,11 @@
 <?php
 function db_connect()
 {
-    $db_host = 'localhost';
-    $db_name = 'ajax-filter';
+    $db_host = '';
+    $db_name = '';
     $db_charset = 'utf8';
-    $db_user = 'root';
-    $db_password = 'buLDog89!';
+    $db_user = '';
+    $db_password = '';
     static $pdh;
     if ($pdh === null) {
         $dns = sprintf('mysql:host=%s;dbname=%s;charset=%s', $db_host, $db_name, $db_charset);
