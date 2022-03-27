@@ -5,9 +5,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* index.php?get_tpl=$0 [QSA]
 
 <FilesMatch "\.(php|twig|log|cache)$">
-Deny from all
+    Deny from all
 </FilesMatch>
 
 <FilesMatch "index.php|ajax-filter.php$">
-Allow from all
+    Allow from all
 </FilesMatch>
