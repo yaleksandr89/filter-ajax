@@ -1,4 +1,5 @@
 <?php
+
 require_once('app/helper/system.php');
 require_once('app/helper/verify.php');
 require_once('app/helper/timer.php');
@@ -14,17 +15,21 @@ try {
     }
     require_once('app/controllers/' . "{$controller}.php");
 } catch (Exception $exception) {
-    file_put_contents(__DIR__ . '/logs/Errors_system.txt',
-        date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL, FILE_APPEND);
+    file_put_contents(
+        __DIR__ . '/logs/Errors_system.txt',
+        date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL,
+        FILE_APPEND
+    );
     redirect_404();
 }
+
 $infoBlock = viewsConnect('info-block.php', [
-    'infoBlock' => $_POST['product_info_error'] ?? null
+    'infoBlock' => $_POST['product_info_error'] ?? null,
 ]);
 
 // The formation of the page
 echo viewsConnect('index.php', [
-    'title' => $title,
-    'navigationMenu' => $navigationMenu,
-    'ajaxFilter' => $ajaxFilter,
+    'title' => $title ?? null,
+    'navigationMenu' => $navigationMenu ?? null,
+    'ajaxFilter' => $ajaxFilter ?? null,
 ]);

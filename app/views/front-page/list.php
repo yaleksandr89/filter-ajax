@@ -1,5 +1,5 @@
 <blockquote>
-    <a href="//github.com/yaleksandr89/Programing-task-php-javascript/tree/master/php/filter-ajax" target="_blank" rel="nofollow noopener">Source code(GitHub)</a>
+    <a href="https://github.com/yaleksandr89/filter-ajax" target="_blank" rel="nofollow noopener">Source code(GitHub)</a>
 </blockquote>
 <div class="select">
     <div class="form-row">

@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 8 ]>
-<html lang="ru" class="ie8"><![endif]-->
-<!--[if IE 9 ]>
-<html lang="ru" class="ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="ru" class="h-100">
-<!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -1,14 +1,19 @@
 <?php
+
 unset($_GET['get_tpl']);
 
 if (count($_GET) > 0) {
     session_start();
     require_once('../models/database.php');
+
     foreach ($_GET as $key => $value) {
         $currentKey = $key;
         $currentValue = $value;
     }
-    $_SESSION[$currentKey] = $currentValue;
+
+    if (isset($currentKey, $currentValue)) {
+        $_SESSION[$currentKey] = $currentValue;
+    }
 }
 
 $filterQuery = 'SELECT * FROM products WHERE';
@@ -24,6 +29,7 @@ $filterQuery = trim($filterQuery, ' WHERE');
 $productsResult = db_query($filterQuery)->fetchAll();
 $infoBlock = 'According to the filter, no products were found.';
 ?>
+
 <?php if (!$productsResult) : ?>
     <div class="col-12 text-center">
         <div class="alert alert-warning pl-2 pr-2" role="alert">
@@ -31,6 +37,7 @@ $infoBlock = 'According to the filter, no products were found.';
         </div>
     </div>
 <?php endif; ?>
+
 <?php foreach ($productsResult as $product): ?>
     <div class="col-xl-3 col-md-4">
         <div class="card item_card">
@@ -46,4 +53,4 @@ $infoBlock = 'According to the filter, no products were found.';
             </div>
         </div>
     </div>
-<?php endforeach; ?>
+<?php endforeach;
