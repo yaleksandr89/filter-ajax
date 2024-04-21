@@ -3,7 +3,6 @@
 unset($_GET['get_tpl']);
 
 if (count($_GET) > 0) {
-    //session_start();
     require_once(PATH_ROOT . '/app/models/database.php');
 
     $filters = $_GET ?? [];
@@ -34,25 +33,28 @@ $infoBlock = 'According to the filter, no products were found.';
 
 <?php if (!$productsResult) : ?>
     <div class="col-12 text-center">
-        <div class="alert alert-warning pl-2 pr-2" role="alert">
+        <div class="alert alert-warning" role="alert">
             <?= '<span>' . $infoBlock . '</span>' ?>
         </div>
     </div>
 <?php endif; ?>
 
 <?php foreach ($productsResult as $product): ?>
-    <div class="col-xl-3 col-md-4">
-        <div class="card item_card">
-            <h5 class="card-title text-center mt-2">
-                <?= $product['category'] ?>
-                <?= $product['title'] ?>
-            </h5>
+    <div class="col-sm-3 mb-3">
+        <div class="card">
             <div class="card-body">
-                <ul>
-                    <li><strong>Цвет</strong>: <?= $product['color'] ?></li>
-                    <li><strong>Вес</strong>: <?= $product['weight'] ?></li>
+                <h5 class="card-title animate-txt">
+                    <?= $product['category'] . ' • ' . $product['title'] ?>
+                </h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <code>Цвет:</code> <?= $product['color'] ?>
+                    </li>
+                    <li class="list-group-item">
+                        <code>Вес:</code> <?= $product['weight'] ?>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-<?php endforeach;
+<?php endforeach; ?>
