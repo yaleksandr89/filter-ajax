@@ -45,8 +45,8 @@
         </div>
     </div>
 </section>
-<script src="assets/js/jquery-3.4.1.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery-3.7.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/404/error_404.js"></script>
 </body>
 </html>
