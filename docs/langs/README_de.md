@@ -1,5 +1,11 @@
 # Projekt: Beispiel für die Implementierung von Filtern mit asynchroner Anfrage
 
+<details>
+  <summary>Wie die Filterung funktioniert</summary>
+
+![ajax filter is in operation](../img/ajax-filter-main.gif)
+</details>
+
 ## Sprache Auswählen:
 
 | Русский | English | Español | 中文 | Français | Deutsch |
@@ -13,7 +19,15 @@
 - Bootstrap 5.3
 
 ## Beschreibung:
-Das Projekt implementiert die Filterung von Produkten nach Kategorie, Farbe und Gewicht unter Verwendung asynchroner Anfragen ohne zusätzliche Bibliotheken in nativem JavaScript. Das CSS-Framework Bootstrap 5.3 wird zur Gestaltung verwendet, wobei in der Vorlage ein Wechsel zwischen hellen und dunklen Designs implementiert ist. Im Verzeichnis `docs/examples/` finden Sie zwei Dateien:
+Das Projekt implementiert die Filterung von Produkten nach Kategorie, Farbe und Gewicht unter Verwendung asynchroner Anfragen ohne zusätzliche Bibliotheken in nativem JavaScript. Das CSS-Framework Bootstrap 5.3 wird zur Gestaltung verwendet, wobei in der Vorlage ein Wechsel zwischen hellen und dunklen Designs implementiert ist. 
+
+<details>
+  <summary>Wie funktioniert das Wechseln des Themas</summary>
+
+![ajax filter is in operation](../img/ajax-filter-theme-color.gif)
+</details>
+
+Im Verzeichnis `docs/examples/` finden Sie zwei Dateien:
 1. `nginx-configuration.conf` - Ein Beispiel für die Konfiguration von Nginx.
 2. `db-config.php.example` - ein Beispiel für eine Konfigurationsdatei zur Verbindung mit der Datenbank. Sie müssen seinen Namen in `db-config.php` ändern, ihn in `app/models/database.php` kopieren und die relevanten Daten für die Verbindung zur Datenbank angeben.
 
