@@ -1,11 +1,27 @@
-<h1>Ajax filter</h1>
-<p>The created filter for sorting the goods uses technology:</p>
-<ul>
-    <li><code>PHP7</code></li>
-    <li><code>MySQL(PDO)</code></li>
-    <li><code>jQuery 3.4.1</code></li>
-    <li><code>Bootstrap 4.3.1</code></li>
-</ul>
-<p>Product are displayed without reloading the page (<code>aJax</code>). When reloading page, the selection criteria
-   are saved – used <code>session_start();</code>.</p>
-<p>If there are no products falling under the selected conditions, a warning is display.</p>
+# Проект: Пример реализации фильтров с применением асинхронного запроса
+
+## Выберите язык:
+
+| Русский  | English                              | Español                              | 中文                              | Français                              | Deutsch                              |
+|----------|--------------------------------------|--------------------------------------|---------------------------------|---------------------------------------|--------------------------------------|
+| **Выбран** | [English](./docs/langs/README_en.md) | [Español](./docs/langs/README_es.md) | [中文](./docs/langs/README_zh.md) | [Français](./docs/langs/README_fr.md) | [Deutsch](./docs/langs/README_de.md) |
+
+## Используемый стек:
+
+- PHP 8
+- Mysql (PDO)
+- Bootstrap 5.3
+
+## Описание:
+
+Проект реализует фильтрацию товаров по категории, цвету и весу с применением асинхронных запросов без использования дополнительных библиотек на нативном JavaScript. CSS-фреймворк Bootstrap 5.3 используется для стилизации, с возможностью переключения между светлой и темной темами, реализованной в шаблоне. В каталоге `docs/examples/` вы найдете два файла:
+
+1. `nginx-configuration.conf` - пример конфигурации для `nginx`.
+2. `db-config.php.example` - пример файла конфигурации для подключения к базе данных. Вам необходимо изменить его имя на `db-config.php`, скопировать его в `app/models/database.php` и указать соответствующие данные для подключения к БД.
+
+Проект не использует `composer` и написан максимально просто без излишних зависимостей.
+
+## Запуск проекта:
+
+1. Добавьте конфигурацию на ваш сервер. В каталоге `docs/examples/` есть пример конфигурации для Nginx. Следуйте этому примеру, чтобы настроить свой сервер.
+2. Создайте базу данных и импортируйте содержимое файла `ajax-filter.sql`, который находится в `docs/mysql-dump/`.
