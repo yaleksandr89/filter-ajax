@@ -28,7 +28,7 @@
     <div class="row h-100 align-items-center">
         <div class="col-md-12">
             <h1 class="animate-txt text-center"><?= $title ?></h1>
-            <?= $ajaxFilter ?>
+            <?= $data ?>
         </div>
     </div>
 </div>

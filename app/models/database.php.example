@@ -1,7 +1,8 @@
 <?php
+
 function db_connect()
 {
-    $db_host = '';
+    $db_host = 'localhost';
     $db_name = '';
     $db_charset = 'utf8';
     $db_user = '';
@@ -18,18 +19,24 @@ function db_connect()
             $pdh = new PDO($dns, $db_user, $db_password, $options);
         } catch (PDOException $exception) {
             echo 'Technical troubles in the site. Soon all fix.';
-            file_put_contents(__DIR__ . '/../../logs/Errors_system.txt', date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL, FILE_APPEND);
+            file_put_contents(
+                PATH_ROOT . '/logs/system-errors.txt',
+                date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL,
+                FILE_APPEND
+            );
         }
     }
+
     return $pdh;
 }
 
 // Request processing
-function db_query(string $sql_query, array $params_execute = [])
+function db_query(string $sql_query, array $params_execute = []): false|PDOStatement
 {
     $pdh = db_connect();
     $sth = $pdh->prepare($sql_query);
     $verifiedParams = [];
+
     foreach ($params_execute as $placeholder => $item) {
         if (is_int($item)) {
             $sth->bindParam(count($params_execute), $placeholder, PDO::PARAM_INT);
@@ -39,11 +46,17 @@ function db_query(string $sql_query, array $params_execute = [])
             $verifiedParams[] = $item;
         }
     }
+
     try {
         $sth->execute($verifiedParams);
-    } catch (PDOException $exception){
+    } catch (PDOException $exception) {
         echo 'Technical troubles in the site. Soon all fix.';
-        file_put_contents(__DIR__ . '/../../logs/Errors_system.txt', date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL, FILE_APPEND);
+        file_put_contents(
+            PATH_ROOT . '/logs/system-errors.txt',
+            date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL,
+            FILE_APPEND
+        );
     }
+
     return $sth;
 }

@@ -2,13 +2,6 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-ini_set('date.timezone', 'Europe/Moscow');
-
-// Defining constants
-define('PATH_ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SERVER_NAME', $_SERVER['SERVER_NAME']);
-define('SCRIPT_FILENAME', $_SERVER['SCRIPT_FILENAME']);
-
 // Conversion dates: 2015-12-12 12:12:12 (MySQL) to 12.12.2015 в 12:12 (PHP)
 function dateMysqlConvert($public_date): string
 {
@@ -35,7 +28,7 @@ function viewsConnect(string $view_name, array $tpl = []): false|string
 {
     extract($tpl);
     ob_start();
-    include("app/views/$view_name");
+    include_once(PATH_ROOT . "/app/views/$view_name");
 
     return ob_get_clean();
 }

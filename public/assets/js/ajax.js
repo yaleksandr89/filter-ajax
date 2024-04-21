@@ -4,14 +4,14 @@ $(function () {
         let value = $(this).val();
 
         $.ajax({
-            type: 'get',
-            url: 'app/helper/ajax-filter.php',
+            type: 'GET',
+            url: '/ajax-filter',
             data: key + '=' + value,
             success: function (result) {
                 $('.cards_block').html(result);
             },
-            error: function () {
-                alert('Ajax error =(');
+            error: function (error) {
+                console.log(error);
             }
         });
     });

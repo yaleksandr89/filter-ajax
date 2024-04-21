@@ -1,6 +1,0 @@
-2024-04-21 00:17:45: Ошибка при подключении: [/assets/css/bootstrap.min.css.map]
-2024-04-21 00:17:45: Ошибка при подключении: [/assets/js/bootstrap.bundle.min.js.map]
-2024-04-21 00:17:47: Ошибка при подключении: [/assets/css/bootstrap.min.css.map]
-2024-04-21 00:17:47: Ошибка при подключении: [/assets/js/bootstrap.bundle.min.js.map]
-2024-04-21 00:17:53: Ошибка при подключении: [/assets/css/bootstrap.min.css.map]
-2024-04-21 00:17:53: Ошибка при подключении: [/assets/js/bootstrap.bundle.min.js.map]

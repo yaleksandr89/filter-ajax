@@ -6,13 +6,11 @@ function checkController(string $controller): int
     return (preg_match('~^\w+$~', $controller));
 }
 
-// Only: numbers, latin letters and -
 function checkTitle(string $title): int
 {
     return preg_match('~^[a-z0-9_\-]*$~i', $title);
 }
 
-// Verify user data (string)
 function prepareUserString(string $link): string
 {
     $result = trim($link);
@@ -20,7 +18,6 @@ function prepareUserString(string $link): string
     return htmlspecialchars($result);
 }
 
-// Verify external url
 function prepareExternalLink(string $link)
 {
     try {
@@ -37,7 +34,7 @@ function prepareExternalLink(string $link)
         unset($_POST['external_link']);
         echo 'Ошибка! Некорректно указан url, повторите ввод.<br><br>';
         file_put_contents(
-            __DIR__ . '/../../logs/Errors_user.txt',
+            PATH_ROOT . '/logs/user_errors.txt',
             date('D, Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL,
             FILE_APPEND
         );

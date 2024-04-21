@@ -3,10 +3,12 @@
 unset($_GET['get_tpl']);
 
 if (count($_GET) > 0) {
-    session_start();
-    require_once('../models/database.php');
+    //session_start();
+    require_once(PATH_ROOT . '/app/models/database.php');
 
-    foreach ($_GET as $key => $value) {
+    $filters = $_GET ?? [];
+
+    foreach ($filters as $key => $value) {
         $currentKey = $key;
         $currentValue = $value;
     }

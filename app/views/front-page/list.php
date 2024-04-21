@@ -30,8 +30,7 @@
             <select id="weights" class="form-control customize-style-dark" name="weight">
                 <option selected value="all">All weight</option>
                 <?php foreach ($weights as $weight): ?>
-                    <option value="<?= $weight['weight'] ?>" <?php echo checkSelectAttribute('weight',
-                        $weight['weight']) ?>>
+                    <option value="<?= $weight['weight'] ?>" <?php echo checkSelectAttribute('weight', $weight['weight']) ?>>
                         <?= $weight['weight'] ?>
                     </option>
                 <?php endforeach; ?>
@@ -40,5 +39,5 @@
     </div>
 </div>
 <div class="row cards_block">
-    <?php include_once('app/helper/ajax-filter.php'); ?>
+    <?php include_once(PATH_ROOT . '/app/helper/ajax-filter.php'); ?>
 </div>
