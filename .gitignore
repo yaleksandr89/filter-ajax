@@ -1,4 +1,3 @@
 app/models/database.php
-logs/system-errors.txt
-logs/user_errors.txt
+logs/*.txt
 .idea/

@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+
+      - name: Validate PHP syntax
+        run: |
+          find app public tests -type f -name '*.php' -print0 \
+            | xargs -0 -n1 php -l
+          php -l docs/examples/db-config.php.example
+
+      - name: Validate JavaScript syntax
+        run: node --check public/assets/js/ajax-filter.js
+
+      - name: Run regression tests
+        run: php tests/filter.Tests.php

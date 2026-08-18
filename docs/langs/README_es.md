@@ -1,37 +1,76 @@
-# Proyecto: Ejemplo de Implementación de Filtros con Solicitud Asincrónica
+# AJAX Filter
 
-<details>
-  <summary>Cómo funciona la filtración</summary>
+[![Source Code](https://img.shields.io/badge/source-yaleksandr89%2Ffilter--ajax-blue.svg?style=flat-square)](https://github.com/yaleksandr89/filter-ajax)
+[![CI](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml/badge.svg)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](../../LICENSE.md)
 
-![ajax filter is in operation](../img/ajax-filter-main.gif)
-</details>
+<p align="center">
+  <img
+    src="../img/filter-ajax-readme-cover.png"
+    alt="AJAX Filter — filtrado dinámico y seguro para PHP con AJAX y listas basadas en base de datos"
+    width="100%"
+  >
+</p>
 
-## Elija Idioma:
+## Elegir idioma
 
 | Русский | English | Español | 中文 | Français | Deutsch |
-|---------|------------|------------|-----------|-------------|----------|
+|---|---|---|---|---|---|
 | [Русский](../../README.md) | [English](README_en.md) | **Seleccionado** | [中文](README_zh.md) | [Français](README_fr.md) | [Deutsch](README_de.md) |
 
-## Tecnologías Utilizadas:
-- PHP 8
-- MySQL (PDO)
-- Bootstrap 5.3
+## Descripción
 
-## Descripción:
-El proyecto implementa la filtración de productos por categoría, color y peso utilizando solicitudes asíncronas sin bibliotecas adicionales en JavaScript nativo. El framework CSS Bootstrap 5.3 se utiliza para el estilo, con un interruptor entre temas claro y oscuro implementado en la plantilla. 
+`AJAX Filter` es un pequeño proyecto de demostración en PHP que filtra productos por categoría, color y peso sin recargar la página. El cliente utiliza JavaScript nativo y `fetch()`, mientras que el servidor utiliza PHP y PDO.
+
+El proyecto no utiliza Composer ni bibliotecas JavaScript de forma intencionada y mantiene una estructura sencilla para estudiar los fundamentos del filtrado AJAX.
+
+## Stack
+
+- PHP 8.5
+- MySQL / MariaDB mediante PDO
+- JavaScript nativo
+- Bootstrap 5.3.3
+- Nginx + PHP-FPM para el ejemplo de servidor incluido
+
+## Inicio rápido
+
+1. Crea una base de datos e importa [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql).
+2. Copia [`docs/examples/db-config.php.example`](../examples/db-config.php.example) a `app/models/database.php`.
+3. Configura en `app/models/database.php` los parámetros locales de conexión a la base de datos.
+4. Configura el document root del servidor web en el directorio `public/`. Hay un ejemplo de Nginx en [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
+5. Ajusta la ruta `fastcgi_pass` del ejemplo si tu socket PHP-FPM es diferente.
+6. Abre la aplicación mediante el host local configurado.
+
+`app/models/database.php` está excluido de Git y no debe contener credenciales de producción versionadas.
+
+## Cómo funciona el filtrado
+
+Cuando cambia un filtro, el navegador envía una solicitud a `/ajax-filter`. El servidor acepta únicamente los campos `category`, `color` y `weight`, guarda los filtros activos en la sesión y ejecuta una consulta PDO parametrizada.
 
 <details>
-  <summary>Cómo funciona el cambio de tema</summary>
+  <summary>Demostración del filtrado</summary>
 
-![ajax filter is in operation](../img/ajax-filter-theme-color.gif)
+![AJAX Filter demo](../img/ajax-filter-main.gif)
 </details>
 
-En el directorio `docs/examples/` encontrarás dos archivos:
-1. `nginx-configuration.conf` - un ejemplo de configuración para Nginx.
-2. `db-config.php.example` - un ejemplo de archivo de configuración para conectar a la base de datos. Debes cambiar su nombre a `db-config.php`, copiarlo en `app/models/database.php` y proporcionar los datos pertinentes para conectarte a la base de datos.
+## Cambio de tema
 
-El proyecto no utiliza Composer y está escrito de la manera más simple posible sin dependencias innecesarias.
+La interfaz admite temas claro, oscuro y del sistema mediante Bootstrap.
 
-## Ejecución del Proyecto:
-1. Agrega la configuración a tu servidor. En el directorio `docs/examples/`, hay un ejemplo de configuración para Nginx. Sigue este ejemplo para configurar tu servidor.
-2. Crea una base de datos e importa el contenido del archivo `ajax-filter.sql` ubicado en `docs/mysql-dump/`.
+<details>
+  <summary>Demostración del cambio de tema</summary>
+
+![AJAX Filter theme demo](../img/ajax-filter-theme-color.gif)
+</details>
+
+## Comprobaciones
+
+GitHub Actions valida:
+
+- la sintaxis PHP;
+- la sintaxis JavaScript;
+- regression tests del filtrado, la parametrización SQL, la validación del controlador y el escape HTML.
+
+## Licencia
+
+El proyecto se distribuye bajo la licencia [MIT](../../LICENSE.md).

@@ -1,38 +1,76 @@
-# Projekt: Beispiel für die Implementierung von Filtern mit asynchroner Anfrage
+# AJAX Filter
 
-<details>
-  <summary>Wie die Filterung funktioniert</summary>
+[![Source Code](https://img.shields.io/badge/source-yaleksandr89%2Ffilter--ajax-blue.svg?style=flat-square)](https://github.com/yaleksandr89/filter-ajax)
+[![CI](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml/badge.svg)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](../../LICENSE.md)
 
-![ajax filter is in operation](../img/ajax-filter-main.gif)
-</details>
+<p align="center">
+  <img
+    src="../img/filter-ajax-readme-cover.png"
+    alt="AJAX Filter — sichere dynamische Filterung für PHP mit AJAX und datenbankgestützten Listen"
+    width="100%"
+  >
+</p>
 
-## Sprache Auswählen:
+## Sprache wählen
 
 | Русский | English | Español | 中文 | Français | Deutsch |
-|---------|------------|------------|-----------|-------------|----------|
+|---|---|---|---|---|---|
 | [Русский](../../README.md) | [English](README_en.md) | [Español](README_es.md) | [中文](README_zh.md) | [Français](README_fr.md) | **Ausgewählt** |
 
+## Beschreibung
 
-## Verwendeter Technologie-Stack:
-- PHP 8
-- MySQL (PDO)
-- Bootstrap 5.3
+`AJAX Filter` ist ein kleines PHP-Demoprojekt, das Produkte nach Kategorie, Farbe und Gewicht filtert, ohne die Seite neu zu laden. Der Client verwendet natives JavaScript und `fetch()`, der Server PHP und PDO.
 
-## Beschreibung:
-Das Projekt implementiert die Filterung von Produkten nach Kategorie, Farbe und Gewicht unter Verwendung asynchroner Anfragen ohne zusätzliche Bibliotheken in nativem JavaScript. Das CSS-Framework Bootstrap 5.3 wird zur Gestaltung verwendet, wobei in der Vorlage ein Wechsel zwischen hellen und dunklen Designs implementiert ist. 
+Das Projekt verwendet bewusst weder Composer noch JavaScript-Bibliotheken und behält eine einfache Struktur zum Erlernen grundlegender AJAX-Filterung bei.
+
+## Stack
+
+- PHP 8.5
+- MySQL / MariaDB über PDO
+- Natives JavaScript
+- Bootstrap 5.3.3
+- Nginx + PHP-FPM für das mitgelieferte Serverbeispiel
+
+## Schnellstart
+
+1. Erstellen Sie eine Datenbank und importieren Sie [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql).
+2. Kopieren Sie [`docs/examples/db-config.php.example`](../examples/db-config.php.example) nach `app/models/database.php`.
+3. Tragen Sie die lokalen Datenbank-Zugangsdaten in `app/models/database.php` ein.
+4. Setzen Sie das Document Root des Webservers auf das Verzeichnis `public/`. Ein Nginx-Beispiel befindet sich in [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
+5. Passen Sie den `fastcgi_pass`-Pfad an, wenn Ihr PHP-FPM-Socket abweicht.
+6. Öffnen Sie die Anwendung über den konfigurierten lokalen Host.
+
+`app/models/database.php` wird von Git ignoriert und darf keine versionierten Produktionszugangsdaten enthalten.
+
+## Funktionsweise der Filterung
+
+Wenn sich ein Filter ändert, sendet der Browser eine Anfrage an `/ajax-filter`. Der Server akzeptiert ausschließlich die Felder `category`, `color` und `weight`, speichert aktive Filter in der Session und führt eine parametrisierte PDO-Abfrage aus.
 
 <details>
-  <summary>Wie funktioniert das Wechseln des Themas</summary>
+  <summary>Filter-Demo</summary>
 
-![ajax filter is in operation](../img/ajax-filter-theme-color.gif)
+![AJAX Filter demo](../img/ajax-filter-main.gif)
 </details>
 
-Im Verzeichnis `docs/examples/` finden Sie zwei Dateien:
-1. `nginx-configuration.conf` - Ein Beispiel für die Konfiguration von Nginx.
-2. `db-config.php.example` - ein Beispiel für eine Konfigurationsdatei zur Verbindung mit der Datenbank. Sie müssen seinen Namen in `db-config.php` ändern, ihn in `app/models/database.php` kopieren und die relevanten Daten für die Verbindung zur Datenbank angeben.
+## Theme-Umschaltung
 
-Das Projekt verwendet kein Composer und ist so einfach wie möglich ohne unnötige Abhängigkeiten geschrieben.
+Die Oberfläche unterstützt helle, dunkle und systemabhängige Themes über Bootstrap.
 
-## Ausführen des Projekts:
-1. Fügen Sie die Konfiguration Ihrem Server hinzu. Im Verzeichnis `docs/examples/` befindet sich eine Beispielkonfiguration für Nginx. Befolgen Sie dieses Beispiel, um Ihren Server zu konfigurieren.
-2. Erstellen Sie eine Datenbank und importieren Sie den Inhalt der Datei `ajax-filter.sql`, die sich in `docs/mysql-dump/` befindet.
+<details>
+  <summary>Theme-Demo</summary>
+
+![AJAX Filter theme demo](../img/ajax-filter-theme-color.gif)
+</details>
+
+## Prüfungen
+
+GitHub Actions prüft:
+
+- PHP-Syntax;
+- JavaScript-Syntax;
+- Regressionstests für Filterung, SQL-Parametrisierung, Controller-Validierung und HTML-Escaping.
+
+## Lizenz
+
+Das Projekt wird unter der [MIT](../../LICENSE.md)-Lizenz veröffentlicht.
