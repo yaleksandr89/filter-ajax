@@ -4,6 +4,14 @@
 [![CI](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml/badge.svg)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
+<p align="center">
+  <img
+    src="docs/img/filter-ajax-readme-cover.png"
+    alt="AJAX Filter — secure dynamic filtering for PHP with AJAX and database-backed lists"
+    width="100%"
+  >
+</p>
+
 ## Выберите язык
 
 | Русский | English | Español | 中文 | Français | Deutsch |
