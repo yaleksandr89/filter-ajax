@@ -7,6 +7,7 @@ define('PATH_ROOT', dirname(__DIR__));
 
 require_once(PATH_ROOT . '/app/helper/system.php');
 require_once(PATH_ROOT . '/app/helper/verify.php');
+require_once(PATH_ROOT . '/app/helper/filter.php');
 require_once(PATH_ROOT . '/app/helper/timer.php');
 require_once(PATH_ROOT . '/app/helper/get-tmp-name.php');
 require_once(PATH_ROOT . '/app/helper/mapping-url-path.php');
@@ -16,8 +17,8 @@ try {
 
     if (
         $controller === '' ||
-        !file_exists(PATH_ROOT . "/app/controllers/$controller.php") ||
-        checkController(PATH_ROOT . "/app/controllers/$controller.php")
+        !checkController($controller) ||
+        !is_file(PATH_ROOT . "/app/controllers/$controller.php")
     ) {
         throw new RuntimeException('Ошибка при подключении: [' . getTemplateName() . ']');
     }

@@ -35,20 +35,9 @@ function db_query(string $sql_query, array $params_execute = []): false|PDOState
 {
     $pdh = db_connect();
     $sth = $pdh->prepare($sql_query);
-    $verifiedParams = [];
-
-    foreach ($params_execute as $placeholder => $item) {
-        if (is_int($item)) {
-            $sth->bindParam(count($params_execute), $placeholder, PDO::PARAM_INT);
-            $verifiedParams[] = $item;
-        } elseif (is_string($item)) {
-            $sth->bindParam(count($params_execute), $placeholder, PDO::PARAM_STR);
-            $verifiedParams[] = $item;
-        }
-    }
 
     try {
-        $sth->execute($verifiedParams);
+        $sth->execute($params_execute);
     } catch (PDOException $exception) {
         echo 'Technical troubles in the site. Soon all fix.';
         file_put_contents(

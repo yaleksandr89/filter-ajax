@@ -17,13 +17,13 @@
                 <option selected value="all">All category</option>
                 <?php foreach ($categories as $category): ?>
                     <option
-                        value="<?= $category['category'] ?>"
+                        value="<?= escapeHtml($category['category']) ?>"
                         <?php echo checkSelectAttribute(
                         'category',
                         $category['category']
                         ) ?>
                     >
-                        <?= $category['category'] ?>
+                        <?= escapeHtml($category['category']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -36,10 +36,10 @@
                 <option selected value="all">All category</option>
                 <?php foreach ($colors as $color): ?>
                     <option
-                        value="<?= $color['color'] ?>"
+                        value="<?= escapeHtml($color['color']) ?>"
                         <?php echo checkSelectAttribute('color', $color['color']) ?>
                     >
-                        <?= $color['color'] ?>
+                        <?= escapeHtml($color['color']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -52,10 +52,10 @@
                 <option selected value="all">All weight</option>
                 <?php foreach ($weights as $weight): ?>
                     <option
-                        value="<?= $weight['weight'] ?>"
+                        value="<?= escapeHtml($weight['weight']) ?>"
                         <?php echo checkSelectAttribute('weight', $weight['weight']) ?>
                     >
-                        <?= $weight['weight'] ?>
+                        <?= escapeHtml($weight['weight']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>

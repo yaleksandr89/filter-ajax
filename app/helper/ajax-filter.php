@@ -2,32 +2,15 @@
 
 unset($_GET['get_tpl']);
 
-if (count($_GET) > 0) {
-    require_once(PATH_ROOT . '/app/models/database.php');
+require_once(PATH_ROOT . '/app/models/database.php');
 
-    $filters = $_GET ?? [];
-
-    foreach ($filters as $key => $value) {
-        $currentKey = $key;
-        $currentValue = $value;
-    }
-
-    if (isset($currentKey, $currentValue)) {
-        $_SESSION[$currentKey] = $currentValue;
-    }
+if ($_GET !== []) {
+    $filters = normalizeFilterRequest($_GET);
+    applyFiltersToSession($_SESSION, $filters);
 }
 
-$filterQuery = 'SELECT * FROM products WHERE';
-foreach ($_SESSION as $key => $value) {
-    if ($value !== 'all') {
-        $filterQuery .= " $key='$value' AND";
-    }
-}
-
-$filterQuery = trim($filterQuery, ' AND');
-$filterQuery = trim($filterQuery, ' WHERE');
-
-$productsResult = db_query($filterQuery)->fetchAll();
+[$filterQuery, $filterParams] = buildProductFilterQuery($_SESSION);
+$productsResult = db_query($filterQuery, $filterParams)->fetchAll();
 $infoBlock = 'According to the filter, no products were found.';
 ?>
 
@@ -44,14 +27,14 @@ $infoBlock = 'According to the filter, no products were found.';
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title animate-txt">
-                    <?= $product['category'] . ' • ' . $product['title'] ?>
+                    <?= escapeHtml($product['category']) . ' • ' . escapeHtml($product['title']) ?>
                 </h5>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <code>Цвет:</code> <?= $product['color'] ?>
+                        <code>Цвет:</code> <?= escapeHtml($product['color']) ?>
                     </li>
                     <li class="list-group-item">
-                        <code>Вес:</code> <?= $product['weight'] ?>
+                        <code>Вес:</code> <?= escapeHtml($product['weight']) ?>
                     </li>
                 </ul>
             </div>

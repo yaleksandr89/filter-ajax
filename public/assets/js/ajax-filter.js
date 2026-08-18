@@ -5,8 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
         select.addEventListener('change', function() {
             let key = this.getAttribute('name');
             let value = this.value;
+            let query = new URLSearchParams({
+                [key]: value
+            });
 
-            fetch('/ajax-filter?' + key + '=' + value)
+            fetch('/ajax-filter?' + query.toString())
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Error when executing the request: ' + response.status);

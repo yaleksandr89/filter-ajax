@@ -1,9 +1,9 @@
 <?php
 
 // Validation ot the controller
-function checkController(string $controller): int
+function checkController(string $controller): bool
 {
-    return (preg_match('~^\w+$~', $controller));
+    return preg_match('~^\w+$~', $controller) === 1;
 }
 
 function checkTitle(string $title): int
