@@ -4,7 +4,7 @@ function db_connect()
 {
     $db_host = 'localhost';
     $db_name = '';
-    $db_charset = 'utf8';
+    $db_charset = 'utf8mb4';
     $db_user = '';
     $db_password = '';
     static $pdh;
