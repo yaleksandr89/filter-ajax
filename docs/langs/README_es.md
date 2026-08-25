@@ -29,19 +29,17 @@ El proyecto no utiliza Composer ni bibliotecas JavaScript de forma intencionada 
 - PHP 8.5
 - MySQL / MariaDB mediante PDO
 - JavaScript nativo
-- Bootstrap 5.3.3
+- CSS nativo
 - Nginx + PHP-FPM para el ejemplo de servidor incluido
 
 ## Inicio rápido
 
 1. Crea una base de datos e importa [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql).
-2. Copia [`docs/examples/db-config.php.example`](../examples/db-config.php.example) a `app/models/database.php`.
-3. Configura en `app/models/database.php` los parámetros locales de conexión a la base de datos.
-4. Configura el document root del servidor web en el directorio `public/`. Hay un ejemplo de Nginx en [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
-5. Ajusta la ruta `fastcgi_pass` del ejemplo si tu socket PHP-FPM es diferente.
+2. Copia [`config/database.php.example`](../../config/database.php.example) a `config/database.php`.
+3. Sustituye los marcadores de `config/database.php` por valores locales de la base de datos. Este archivo está ignorado por Git.
+4. Como alternativa, define `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` y `DB_CHARSET`; los valores del entorno reemplazan los del archivo.
+5. Adapta tanto el document root del servidor web como `fastcgi_pass` a tu entorno local. Hay un ejemplo de Nginx en [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
 6. Abre la aplicación mediante el host local configurado.
-
-`app/models/database.php` está excluido de Git y no debe contener credenciales de producción versionadas.
 
 ## Cómo funciona el filtrado
 
@@ -55,7 +53,7 @@ Cuando cambia un filtro, el navegador envía una solicitud a `/ajax-filter`. El 
 
 ## Cambio de tema
 
-La interfaz admite temas claro, oscuro y del sistema mediante Bootstrap.
+La interfaz admite temas claro, oscuro y del sistema con CSS propio del proyecto y JavaScript nativo; el tema del sistema sigue la preferencia del sistema operativo.
 
 <details>
   <summary>Demostración del cambio de tema</summary>
@@ -69,7 +67,7 @@ GitHub Actions valida:
 
 - la sintaxis PHP;
 - la sintaxis JavaScript;
-- regression tests del filtrado, la parametrización SQL, la validación del controlador y el escape HTML.
+- regression tests propios para la normalización de filtros y la semántica de sesión, el allowlisting/la parametrización SQL y su contrato determinista, la precedencia/validación de la configuración de base de datos, el escape HTML y el autoload nativo.
 
 ## Licencia
 

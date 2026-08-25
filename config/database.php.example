@@ -1,0 +1,14 @@
+<?php
+
+declare(strict_types=1);
+
+// Скопируйте этот файл в config/database.php и замените значения-заглушки.
+// Переменные окружения DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD и DB_CHARSET имеют приоритет над значениями из файла.
+return [
+    'host' => '127.0.0.1',
+    'port' => 3306,
+    'name' => 'your_database_name',
+    'user' => 'your_database_user',
+    'password' => 'your_database_password',
+    'charset' => 'utf8mb4',
+];

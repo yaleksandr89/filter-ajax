@@ -29,19 +29,17 @@
 - PHP 8.5
 - 通过 PDO 使用 MySQL / MariaDB
 - 原生 JavaScript
-- Bootstrap 5.3.3
+- 原生 CSS
 - Nginx + PHP-FPM，用于提供的服务器配置示例
 
 ## 快速开始
 
 1. 创建数据库并导入 [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql)。
-2. 将 [`docs/examples/db-config.php.example`](../examples/db-config.php.example) 复制到 `app/models/database.php`。
-3. 在 `app/models/database.php` 中填写本地数据库连接参数。
-4. 将 Web 服务器的 document root 设置为 `public/` 目录。Nginx 示例位于 [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf)。
-5. 如果本机 PHP-FPM socket 不同，请调整示例中的 `fastcgi_pass` 路径。
+2. 将 [`config/database.php.example`](../../config/database.php.example) 复制到 `config/database.php`。
+3. 用本地数据库值替换 `config/database.php` 中的占位符。该文件已被 Git 忽略。
+4. 或者设置 `DB_HOST`、`DB_PORT`、`DB_NAME`、`DB_USER`、`DB_PASSWORD` 和 `DB_CHARSET`；环境变量会覆盖文件值。
+5. 请根据本地环境同时调整 Web 服务器的 document root 和 `fastcgi_pass`。Nginx 示例位于 [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf)。
 6. 通过配置好的本地域名打开应用。
-
-`app/models/database.php` 已被 Git 忽略，不应将生产环境凭据提交到仓库。
 
 ## 筛选工作原理
 
@@ -55,7 +53,7 @@
 
 ## 主题切换
 
-界面通过 Bootstrap 支持浅色、深色和系统主题。
+界面使用项目自有 CSS 和原生 JavaScript 支持浅色、深色和系统主题；系统主题遵循操作系统偏好。
 
 <details>
   <summary>主题切换演示</summary>
@@ -69,7 +67,7 @@ GitHub Actions 会检查：
 
 - PHP 语法；
 - JavaScript 语法；
-- 筛选、SQL 参数化、controller validation 和 HTML escaping 的回归测试。
+- 关于筛选规范化和 session 语义、SQL 白名单/参数化及其确定性查询契约、数据库配置优先级/验证、HTML 转义和原生 autoload 的第一方回归测试。
 
 ## 许可证
 

@@ -1,4 +1,2 @@
 config/database.php
-app/models/database.php
-logs/*.txt
 .idea/

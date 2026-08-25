@@ -28,20 +28,18 @@
 
 - PHP 8.5
 - MySQL / MariaDB через PDO
-- Native JavaScript
-- Bootstrap 5.3.3
+- Нативный JavaScript
+- Нативный CSS
 - Nginx + PHP-FPM для приведённого примера запуска
 
 ## Быстрый старт
 
 1. Создайте базу данных и импортируйте [`docs/mysql-dump/ajax-filter.sql`](docs/mysql-dump/ajax-filter.sql).
-2. Скопируйте [`docs/examples/db-config.php.example`](docs/examples/db-config.php.example) в `app/models/database.php`.
-3. Укажите в `app/models/database.php` локальные параметры подключения к базе данных.
-4. Настройте document root веб-сервера на каталог `public/`. Пример для Nginx находится в [`docs/examples/nginx-configuration.conf`](docs/examples/nginx-configuration.conf).
-5. При необходимости измените путь `fastcgi_pass` в примере Nginx под установленный у вас PHP-FPM.
+2. Скопируйте [`config/database.php.example`](config/database.php.example) в `config/database.php`.
+3. Укажите в `config/database.php` локальные параметры подключения к базе данных. Этот файл исключён из Git.
+4. Либо задайте `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` и `DB_CHARSET`; значения окружения переопределяют значения из файла.
+5. Настройте document root веб-сервера и `fastcgi_pass` под локальную среду. Пример для Nginx находится в [`docs/examples/nginx-configuration.conf`](docs/examples/nginx-configuration.conf).
 6. Откройте приложение через настроенный локальный host.
-
-`app/models/database.php` исключён из Git и не должен содержать production credentials в репозитории.
 
 ## Как работает фильтрация
 
@@ -55,7 +53,7 @@
 
 ## Переключение темы
 
-Интерфейс поддерживает светлую, тёмную и системную темы средствами Bootstrap.
+Интерфейс поддерживает светлую, тёмную и системную темы средствами проектных CSS и нативного JavaScript; системная тема следует настройкам ОС.
 
 <details>
   <summary>Демонстрация переключения темы</summary>
@@ -69,7 +67,7 @@ GitHub Actions проверяет:
 
 - синтаксис PHP;
 - синтаксис JavaScript;
-- regression tests для фильтров, SQL-параметризации, controller validation и HTML escaping.
+- regression tests для нормализации фильтров и семантики сессии, SQL allowlisting/параметризации и детерминированного SQL-контракта, приоритета/валидации конфигурации БД, HTML escaping и нативного autoload.
 
 ## Лицензия
 

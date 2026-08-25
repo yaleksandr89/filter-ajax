@@ -32,7 +32,7 @@ final readonly class ProductRepository
      */
     public function categories(): array
     {
-        return $this->pdo->query('SELECT * FROM categories')->fetchAll();
+        return $this->pdo->query('SELECT category FROM categories ORDER BY id_category')->fetchAll();
     }
 
     /**
@@ -40,7 +40,7 @@ final readonly class ProductRepository
      */
     public function colors(): array
     {
-        return $this->pdo->query('SELECT * FROM colors')->fetchAll();
+        return $this->pdo->query('SELECT color FROM colors ORDER BY id_color')->fetchAll();
     }
 
     /**
@@ -48,6 +48,6 @@ final readonly class ProductRepository
      */
     public function weights(): array
     {
-        return $this->pdo->query('SELECT * FROM weights')->fetchAll();
+        return $this->pdo->query('SELECT weight FROM weights ORDER BY id_weight')->fetchAll();
     }
 }

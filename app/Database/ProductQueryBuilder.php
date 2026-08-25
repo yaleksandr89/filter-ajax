@@ -9,8 +9,8 @@ final class ProductQueryBuilder
     private const array ALLOWED_IDENTIFIERS = ['category', 'color', 'weight'];
 
     /**
-     * @param array<string, mixed> $criteria
-     * @return array{0: string, 1: array<string, scalar>}
+     * @param array<string, string> $criteria
+     * @return array{0: string, 1: array<string, string>}
      */
     public function build(array $criteria): array
     {
@@ -26,10 +26,12 @@ final class ProductQueryBuilder
             $parameters[$identifier] = $criteria[$identifier];
         }
 
-        $sql = 'SELECT * FROM products';
+        $sql = 'SELECT category, title, color, weight FROM products';
         if ($clauses !== []) {
             $sql .= ' WHERE ' . implode(' AND ', $clauses);
         }
+
+        $sql .= ' ORDER BY id_product';
 
         return [$sql, $parameters];
     }

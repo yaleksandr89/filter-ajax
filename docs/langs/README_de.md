@@ -29,19 +29,17 @@ Das Projekt verwendet bewusst weder Composer noch JavaScript-Bibliotheken und be
 - PHP 8.5
 - MySQL / MariaDB über PDO
 - Natives JavaScript
-- Bootstrap 5.3.3
+- Natives CSS
 - Nginx + PHP-FPM für das mitgelieferte Serverbeispiel
 
 ## Schnellstart
 
 1. Erstellen Sie eine Datenbank und importieren Sie [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql).
-2. Kopieren Sie [`docs/examples/db-config.php.example`](../examples/db-config.php.example) nach `app/models/database.php`.
-3. Tragen Sie die lokalen Datenbank-Zugangsdaten in `app/models/database.php` ein.
-4. Setzen Sie das Document Root des Webservers auf das Verzeichnis `public/`. Ein Nginx-Beispiel befindet sich in [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
-5. Passen Sie den `fastcgi_pass`-Pfad an, wenn Ihr PHP-FPM-Socket abweicht.
+2. Kopieren Sie [`config/database.php.example`](../../config/database.php.example) nach `config/database.php`.
+3. Ersetzen Sie die Platzhalter in `config/database.php` durch lokale Datenbankwerte. Diese Datei wird von Git ignoriert.
+4. Alternativ können Sie `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` und `DB_CHARSET` setzen; Umgebungswerte überschreiben Dateiwerten.
+5. Passen Sie sowohl das Document Root des Webservers als auch `fastcgi_pass` an Ihre lokale Umgebung an. Ein Nginx-Beispiel befindet sich in [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
 6. Öffnen Sie die Anwendung über den konfigurierten lokalen Host.
-
-`app/models/database.php` wird von Git ignoriert und darf keine versionierten Produktionszugangsdaten enthalten.
 
 ## Funktionsweise der Filterung
 
@@ -55,7 +53,7 @@ Wenn sich ein Filter ändert, sendet der Browser eine Anfrage an `/ajax-filter`.
 
 ## Theme-Umschaltung
 
-Die Oberfläche unterstützt helle, dunkle und systemabhängige Themes über Bootstrap.
+Die Oberfläche unterstützt helle, dunkle und systemabhängige Themes mit projektinternem CSS und nativem JavaScript; das System-Theme folgt der Betriebssystemeinstellung.
 
 <details>
   <summary>Theme-Demo</summary>
@@ -69,7 +67,7 @@ GitHub Actions prüft:
 
 - PHP-Syntax;
 - JavaScript-Syntax;
-- Regressionstests für Filterung, SQL-Parametrisierung, Controller-Validierung und HTML-Escaping.
+- Eigene Regressionstests für Filternormalisierung und Session-Semantik, SQL-Allowlisting/-Parametrisierung und den deterministischen Query-Vertrag, Priorität/Validierung der Datenbankkonfiguration, HTML-Escaping und nativen Autoload.
 
 ## Lizenz
 

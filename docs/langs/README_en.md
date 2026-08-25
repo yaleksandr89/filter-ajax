@@ -29,19 +29,17 @@ The project intentionally uses neither Composer nor JavaScript libraries and kee
 - PHP 8.5
 - MySQL / MariaDB through PDO
 - Native JavaScript
-- Bootstrap 5.3.3
+- Native CSS
 - Nginx + PHP-FPM for the provided server example
 
 ## Quick start
 
 1. Create a database and import [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql).
-2. Copy [`docs/examples/db-config.php.example`](../examples/db-config.php.example) to `app/models/database.php`.
-3. Set your local database connection parameters in `app/models/database.php`.
-4. Configure the web server document root to the `public/` directory. An Nginx example is available in [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
-5. Adjust the `fastcgi_pass` path in the Nginx example if your PHP-FPM socket is different.
+2. Copy [`config/database.php.example`](../../config/database.php.example) to `config/database.php`.
+3. Replace the placeholders in `config/database.php` with local database values. This file is ignored by Git.
+4. Alternatively, provide `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, and `DB_CHARSET`; environment values override file values.
+5. Adapt both the web server document root and `fastcgi_pass` to your local environment. An Nginx example is available in [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
 6. Open the application through the configured local host.
-
-`app/models/database.php` is ignored by Git and must not contain production credentials committed to the repository.
 
 ## How filtering works
 
@@ -55,7 +53,7 @@ When a filter changes, the browser sends a request to `/ajax-filter`. The server
 
 ## Theme switching
 
-The interface supports light, dark, and system themes using Bootstrap.
+The interface supports Light, Dark, and System themes with project-owned CSS and native JavaScript; System follows the OS preference.
 
 <details>
   <summary>Theme switching demo</summary>
@@ -69,7 +67,7 @@ GitHub Actions validates:
 
 - PHP syntax;
 - JavaScript syntax;
-- regression tests for filtering, SQL parameterization, controller validation, and HTML escaping.
+- first-party regression tests for filter normalization and session semantics, SQL allowlisting/parameterization and its deterministic query contract, database configuration precedence/validation, HTML escaping, and native autoloading.
 
 ## License
 

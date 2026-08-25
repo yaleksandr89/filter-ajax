@@ -28,7 +28,7 @@ jobs:
         run: |
           find app public templates tests -type f -name '*.php' -print0 \
             | xargs -0 -n1 php -l
-          php -l docs/examples/db-config.php.example
+          php -l config/database.php.example
 
       - name: Validate JavaScript syntax
         run: |
