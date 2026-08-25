@@ -7,29 +7,30 @@
 
 if ($products === []):
 ?>
-    <div class="col-12 text-center">
-        <div class="alert alert-warning" role="alert">
-            <span>According to the filter, no products were found.</span>
+    <div class="no-results" role="status">
+        <span class="no-results__mark" aria-hidden="true">0</span>
+        <div>
+            <h2>No matching products</h2>
+            <p>Try another filter value to broaden the results.</p>
         </div>
     </div>
 <?php endif; ?>
 
 <?php foreach ($products as $product): ?>
-    <div class="col-sm-3 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title animate-txt">
-                    <?= $this->escape($product['category']) ?> • <?= $this->escape($product['title']) ?>
-                </h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <code>Цвет:</code> <?= $this->escape($product['color']) ?>
-                    </li>
-                    <li class="list-group-item">
-                        <code>Вес:</code> <?= $this->escape($product['weight']) ?>
-                    </li>
-                </ul>
-            </div>
+    <article class="product-card">
+        <div class="product-card__heading">
+            <p class="product-card__category"><?= $this->escape($product['category']) ?></p>
+            <h2><?= $this->escape($product['title']) ?></h2>
         </div>
-    </div>
+        <dl class="product-card__details">
+            <div>
+                <dt>Цвет</dt>
+                <dd><?= $this->escape($product['color']) ?></dd>
+            </div>
+            <div>
+                <dt>Вес</dt>
+                <dd><?= $this->escape($product['weight']) ?></dd>
+            </div>
+        </dl>
+    </article>
 <?php endforeach; ?>

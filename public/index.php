@@ -27,7 +27,7 @@ try {
         header('Content-Type: text/html; charset=UTF-8');
         header('Refresh: 10; url=/');
 
-        require __DIR__ . '/assets/404/index.php';
+        require $projectRoot . '/templates/error/404.php';
         exit;
     }
 
