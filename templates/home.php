@@ -1,3 +1,14 @@
+<?php
+
+/**
+ * @var \App\View\ViewRenderer $this
+ * @var list<array{category: string}> $categories
+ * @var list<array{color: string}> $colors
+ * @var list<array{weight: string}> $weights
+ * @var array<string, string> $activeFilters
+ * @var string $productsHtml Trusted, already-rendered product-list HTML.
+ */
+?>
 <div class="row mb-3">
     <a
         href="https://github.com/yaleksandr89/filter-ajax"
@@ -14,16 +25,14 @@
         <div class="form-group">
             <label for="categories"><code>Category</code></label>
             <select id="categories" class="form-control outline-customize" name="category">
-                <option selected value="all">All category</option>
+                <option value="all" <?= isset($activeFilters['category']) ? '' : 'selected' ?>>All category</option>
                 <?php foreach ($categories as $category): ?>
+                    <?php $categoryValue = $category['category']; ?>
                     <option
-                        value="<?= escapeHtml($category['category']) ?>"
-                        <?php echo checkSelectAttribute(
-                        'category',
-                        $category['category']
-                        ) ?>
+                        value="<?= $this->escape($categoryValue) ?>"
+                        <?= ($activeFilters['category'] ?? null) === $categoryValue ? 'selected' : '' ?>
                     >
-                        <?= escapeHtml($category['category']) ?>
+                        <?= $this->escape($categoryValue) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -33,13 +42,14 @@
         <div class="form-group">
             <label for="colors"><code>Colors</code></label>
             <select id="colors" class="form-control outline-customize" name="color">
-                <option selected value="all">All category</option>
+                <option value="all" <?= isset($activeFilters['color']) ? '' : 'selected' ?>>All category</option>
                 <?php foreach ($colors as $color): ?>
+                    <?php $colorValue = $color['color']; ?>
                     <option
-                        value="<?= escapeHtml($color['color']) ?>"
-                        <?php echo checkSelectAttribute('color', $color['color']) ?>
+                        value="<?= $this->escape($colorValue) ?>"
+                        <?= ($activeFilters['color'] ?? null) === $colorValue ? 'selected' : '' ?>
                     >
-                        <?= escapeHtml($color['color']) ?>
+                        <?= $this->escape($colorValue) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -49,13 +59,14 @@
         <div class="form-group">
             <label for="weights"><code>Weight</code></label>
             <select id="weights" class="form-control outline-customize" name="weight">
-                <option selected value="all">All weight</option>
+                <option value="all" <?= isset($activeFilters['weight']) ? '' : 'selected' ?>>All weight</option>
                 <?php foreach ($weights as $weight): ?>
+                    <?php $weightValue = $weight['weight']; ?>
                     <option
-                        value="<?= escapeHtml($weight['weight']) ?>"
-                        <?php echo checkSelectAttribute('weight', $weight['weight']) ?>
+                        value="<?= $this->escape($weightValue) ?>"
+                        <?= ($activeFilters['weight'] ?? null) === $weightValue ? 'selected' : '' ?>
                     >
-                        <?= escapeHtml($weight['weight']) ?>
+                        <?= $this->escape($weightValue) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -63,7 +74,6 @@
     </div>
 </div>
 
-
 <div class="row" data-filters-block>
-    <?php include_once(PATH_ROOT . '/app/helper/ajax-filter.php'); ?>
+    <?= $productsHtml ?>
 </div>

@@ -1,51 +1,13 @@
 <?php
 
-function db_connect()
-{
-    $db_host = 'localhost';
-    $db_name = '';
-    $db_charset = 'utf8mb4';
-    $db_user = '';
-    $db_password = '';
-    static $pdh;
-    if ($pdh === null) {
-        $dns = sprintf('mysql:host=%s;dbname=%s;charset=%s', $db_host, $db_name, $db_charset);
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ];
-        try {
-            $pdh = new PDO($dns, $db_user, $db_password, $options);
-        } catch (PDOException $exception) {
-            echo 'Technical troubles in the site. Soon all fix.';
-            file_put_contents(
-                PATH_ROOT . '/logs/system-errors.txt',
-                date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL,
-                FILE_APPEND
-            );
-        }
-    }
+declare(strict_types=1);
 
-    return $pdh;
-}
-
-// Request processing
-function db_query(string $sql_query, array $params_execute = []): false|PDOStatement
-{
-    $pdh = db_connect();
-    $sth = $pdh->prepare($sql_query);
-
-    try {
-        $sth->execute($params_execute);
-    } catch (PDOException $exception) {
-        echo 'Technical troubles in the site. Soon all fix.';
-        file_put_contents(
-            PATH_ROOT . '/logs/system-errors.txt',
-            date('Y-m-d H:i:s') . ': ' . $exception->getMessage() . PHP_EOL,
-            FILE_APPEND
-        );
-    }
-
-    return $sth;
-}
+// Copy this file to config/database.php and replace the placeholders.
+return [
+    'host' => '127.0.0.1',
+    'port' => 3306,
+    'name' => 'your_database_name',
+    'user' => 'your_database_user',
+    'password' => 'your_database_password',
+    'charset' => 'utf8mb4',
+];

@@ -30,7 +30,7 @@
                         <p>The requested page does not exist or has been deleted.</p>
                         <p>If you are sure otherwise, please contact me<span class="blink">_</span></p>
                         <form class="form-group text-center">
-                            <button type="button" class="btn btn-outline-secondary" onclick="location.href='/php/ajax-filter'">
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.href='/'">
                                 Back to home
                             </button>
                             <button type="button" class="btn btn-outline-warning"
@@ -50,4 +50,3 @@
 <script src="assets/404/error_404.js"></script>
 </body>
 </html>
-<?php goIndex(10,'/'); ?>
