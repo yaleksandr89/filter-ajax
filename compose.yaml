@@ -1,0 +1,56 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: docker/mariadb/Dockerfile
+    environment:
+      MARIADB_DATABASE: filter_ajax
+      MARIADB_USER: filter_ajax
+      MARIADB_PASSWORD: filter_ajax_local_password
+      MARIADB_ROOT_PASSWORD: filter_ajax_root_local_password
+      FILTER_AJAX_DB_MODE: ${FILTER_AJAX_DB_MODE:-demo}
+    volumes:
+      - filter_ajax_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: filter_ajax
+      DB_USER: filter_ajax
+      DB_PASSWORD: filter_ajax_local_password
+      DB_CHARSET: utf8mb4
+      PHP_IDE_CONFIG: serverName=filter-ajax
+    depends_on:
+      db:
+        condition: service_healthy
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    depends_on:
+      php:
+        condition: service_started
+    ports:
+      - "127.0.0.1:${FILTER_AJAX_HTTP_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/ || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+
+volumes:
+  filter_ajax_db:

@@ -37,3 +37,85 @@ jobs:
 
       - name: Run regression tests
         run: php tests/run.php
+
+      - name: Validate Docker configuration
+        run: |
+          bash -n docker/mariadb/init.sh
+          docker compose config
+
+  docker-smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        db_mode:
+          - schema
+          - demo
+    env:
+      COMPOSE_PROJECT_NAME: filter-ajax-ci-${{ matrix.db_mode }}
+      FILTER_AJAX_DB_MODE: ${{ matrix.db_mode }}
+      FILTER_AJAX_HTTP_PORT: 18080
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build and start stack
+        run: docker compose up --build --wait --wait-timeout 120
+
+      - name: Verify common runtime behavior
+        run: |
+          set -Eeuo pipefail
+          curl --fail --silent --show-error http://127.0.0.1:18080/ > /tmp/home.html
+          curl --fail --silent --show-error http://127.0.0.1:18080/assets/css/app.css > /dev/null
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:18080/not-found)" = 404
+          test "$(curl --silent --output /tmp/index.php.html --write-out '%{http_code}' http://127.0.0.1:18080/index.php)" = 404
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:18080/anything.php)" = 404
+          if grep -Fq '<?php' /tmp/index.php.html; then exit 1; fi
+          docker compose exec -T php php -m | grep -Fx pdo_mysql
+          docker compose exec -T php php -m | grep -Fx xdebug
+          test "$(docker compose exec -T php php -r 'echo phpversion("xdebug");')" = 3.5.3
+          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.mode");')" = debug
+          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.start_with_request");')" = trigger
+          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.client_host");')" = host.docker.internal
+          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.client_port");')" = 9003
+          docker compose exec -T php getent hosts host.docker.internal
+          docker compose exec -T nginx nginx -T 2>&1 | grep -Fqx '    access_log off;'
+          docker compose exec -T nginx nginx -T 2>&1 | grep -Fqx '    error_log /dev/stderr warn;'
+          test "$(docker compose exec -T -e MYSQL_PWD=filter_ajax_local_password db mariadb -u filter_ajax filter_ajax -Nse 'SHOW TABLES' | tr '\n' ' ')" = 'categories colors products weights '
+          test "$(docker inspect "$(docker compose ps -q nginx)" --format '{{json .NetworkSettings.Ports}}')" = '{"80/tcp":[{"HostIp":"127.0.0.1","HostPort":"18080"}]}'
+          test "$(docker inspect "$(docker compose ps -q db)" --format '{{json .NetworkSettings.Ports}}')" = '{"3306/tcp":null}'
+          test "$(docker inspect "$(docker compose ps -q php)" --format '{{json .NetworkSettings.Ports}}')" = '{"9000/tcp":null}'
+
+      - name: Verify schema mode
+        if: matrix.db_mode == 'schema'
+        run: |
+          set -Eeuo pipefail
+          db_count() {
+            docker compose exec -T -e MYSQL_PWD=filter_ajax_local_password db \
+              mariadb -u filter_ajax filter_ajax -Nse "SELECT COUNT(*) FROM $1"
+          }
+          test "$(db_count categories)" = 0
+          test "$(db_count colors)" = 0
+          test "$(db_count weights)" = 0
+          test "$(db_count products)" = 0
+          grep -Fq 'No matching products' /tmp/home.html
+
+      - name: Verify demo mode
+        if: matrix.db_mode == 'demo'
+        run: |
+          set -Eeuo pipefail
+          db_count() {
+            docker compose exec -T -e MYSQL_PWD=filter_ajax_local_password db \
+              mariadb -u filter_ajax filter_ajax -Nse "SELECT COUNT(*) FROM $1"
+          }
+          test "$(db_count categories)" = 3
+          test "$(db_count colors)" = 6
+          test "$(db_count weights)" = 5
+          test "$(db_count products)" = 30
+          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop' | grep -Fq 'product-card'
+          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Black&weight=3kg' | grep -Fq 'Atlas L300'
+          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Green&weight=9kg' | grep -Fq 'No matching products'
+
+      - name: Tear down stack
+        if: always()
+        run: docker compose down -v --remove-orphans
