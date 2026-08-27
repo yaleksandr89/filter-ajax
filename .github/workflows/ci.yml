@@ -41,7 +41,8 @@ jobs:
       - name: Validate Docker configuration
         run: |
           bash -n docker/mariadb/init.sh
-          docker compose config
+          make help
+          make config
 
   docker-smoke:
     runs-on: ubuntu-latest
