@@ -49,10 +49,49 @@
                 <button type="button" data-language-option="en" aria-pressed="false">EN</button>
             </div>
 
-            <div class="theme-control" role="group" aria-label="Цветовая тема" data-i18n-aria-label="themeControl">
-                <button type="button" data-theme-option="light" aria-pressed="false" data-i18n="themeLight">Светлая</button>
-                <button type="button" data-theme-option="system" aria-pressed="true" data-i18n="themeSystem">Система</button>
-                <button type="button" data-theme-option="dark" aria-pressed="false" data-i18n="themeDark">Тёмная</button>
+            <div
+                class="theme-control"
+                role="group"
+                aria-label="Цветовая тема"
+                data-i18n-aria-label="themeControl"
+            >
+                <button
+                    type="button"
+                    data-theme-option="light"
+                    aria-pressed="false"
+                    aria-label="Светлая"
+                    data-i18n-aria-label="themeLight"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="3.5"></circle>
+                        <path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.41 1.41M17.13 17.13l1.41 1.41M18.54 5.46l-1.41 1.41M6.87 17.13l-1.41 1.41"></path>
+                    </svg>
+                </button>
+
+                <button
+                    type="button"
+                    data-theme-option="system"
+                    aria-pressed="true"
+                    aria-label="Система"
+                    data-i18n-aria-label="themeSystem"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="3.5" y="4.5" width="17" height="12" rx="1.5"></rect>
+                        <path d="M9 20h6M12 16.5V20"></path>
+                    </svg>
+                </button>
+
+                <button
+                    type="button"
+                    data-theme-option="dark"
+                    aria-pressed="false"
+                    aria-label="Тёмная"
+                    data-i18n-aria-label="themeDark"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M20.25 14.25A8.25 8.25 0 0 1 9.75 3.75a8.25 8.25 0 1 0 10.5 10.5Z"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>

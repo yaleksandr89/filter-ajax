@@ -100,16 +100,6 @@
         }
     }
 
-    function storedLanguage() {
-        try {
-            const value = window.localStorage.getItem(languageStorageKey);
-
-            return allowedLanguages.includes(value) ? value : 'ru';
-        } catch (error) {
-            return 'ru';
-        }
-    }
-
     function resolvedTheme(preference) {
         if (preference === 'system') {
             return colorSchemeQuery.matches ? 'dark' : 'light';
