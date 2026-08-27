@@ -10,8 +10,8 @@ if ($products === []):
     <div class="no-results" role="status">
         <span class="no-results__mark" aria-hidden="true">0</span>
         <div>
-            <h2>No matching products</h2>
-            <p>Try another filter value to broaden the results.</p>
+            <h2 data-i18n="noResultsTitle">Ничего не найдено</h2>
+            <p data-i18n="noResultsText">Сбросьте или измените фильтры, чтобы увидеть больше товаров.</p>
         </div>
     </div>
 <?php endif; ?>
@@ -24,11 +24,11 @@ if ($products === []):
         </div>
         <dl class="product-card__details">
             <div>
-                <dt>Цвет</dt>
+                <dt data-i18n="color">Цвет</dt>
                 <dd><?= $this->escape($product['color']) ?></dd>
             </div>
             <div>
-                <dt>Вес</dt>
+                <dt data-i18n="weight">Вес</dt>
                 <dd><?= $this->escape($product['weight']) ?></dd>
             </div>
         </dl>

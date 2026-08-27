@@ -110,6 +110,23 @@ assertSameValue(
     'Active criteria must contain only normalized supported session filters.',
 );
 
+$resetSession = [
+    'category' => 'Laptop',
+    'color' => 'Black',
+    'weight' => '5kg',
+    'unrelated' => 'keep',
+];
+$filter->apply($resetSession, [
+    'category' => 'all',
+    'color' => 'all',
+    'weight' => 'all',
+]);
+assertSameValue(
+    ['unrelated' => 'keep'],
+    $resetSession,
+    'Resetting all filters must clear only filter-owned session state.',
+);
+
 [$sql, $parameters] = $queryBuilder->build([
     'category' => "Laptop' OR 1=1 --",
     'weight' => '5kg',

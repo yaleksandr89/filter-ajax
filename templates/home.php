@@ -12,18 +12,30 @@
 <section class="filter-panel" aria-labelledby="filter-title">
     <div class="filter-panel__heading">
         <div>
-            <p class="eyebrow">Refine results</p>
-            <h2 id="filter-title">Filter products</h2>
+            <p class="eyebrow" data-i18n="refineEyebrow">Настройте выдачу</p>
+            <h2 id="filter-title" data-i18n="filterTitle">Фильтр товаров</h2>
         </div>
-        <p>Each selection updates the results automatically.</p>
+        <div class="filter-panel__meta">
+            <p data-i18n="filterHint">Каждое изменение автоматически обновляет результаты.</p>
+            <button
+                class="reset-button"
+                type="button"
+                data-filter-reset
+                aria-controls="product-results"
+                <?= $activeFilters === [] ? 'disabled' : '' ?>
+            >
+                <span class="reset-button__icon" aria-hidden="true">↺</span>
+                <span data-i18n="resetFilters">Сбросить</span>
+            </button>
+        </div>
     </div>
 
     <div class="filter-grid">
         <div class="filter-field">
-            <label for="categories">Category</label>
+            <label for="categories" data-i18n="category">Категория</label>
             <div class="select-wrap">
                 <select id="categories" name="category">
-                    <option value="all" <?= isset($activeFilters['category']) ? '' : 'selected' ?>>All categories</option>
+                    <option value="all" <?= isset($activeFilters['category']) ? '' : 'selected' ?> data-i18n="allCategories">Все категории</option>
                     <?php foreach ($categories as $category): ?>
                         <?php $categoryValue = $category['category']; ?>
                         <option
@@ -38,10 +50,10 @@
         </div>
 
         <div class="filter-field">
-            <label for="colors">Color</label>
+            <label for="colors" data-i18n="color">Цвет</label>
             <div class="select-wrap">
                 <select id="colors" name="color">
-                    <option value="all" <?= isset($activeFilters['color']) ? '' : 'selected' ?>>All colors</option>
+                    <option value="all" <?= isset($activeFilters['color']) ? '' : 'selected' ?> data-i18n="allColors">Все цвета</option>
                     <?php foreach ($colors as $color): ?>
                         <?php $colorValue = $color['color']; ?>
                         <option
@@ -56,10 +68,10 @@
         </div>
 
         <div class="filter-field">
-            <label for="weights">Weight</label>
+            <label for="weights" data-i18n="weight">Вес</label>
             <div class="select-wrap">
                 <select id="weights" name="weight">
-                    <option value="all" <?= isset($activeFilters['weight']) ? '' : 'selected' ?>>All weights</option>
+                    <option value="all" <?= isset($activeFilters['weight']) ? '' : 'selected' ?> data-i18n="allWeights">Любой вес</option>
                     <?php foreach ($weights as $weight): ?>
                         <?php $weightValue = $weight['weight']; ?>
                         <option
@@ -75,6 +87,13 @@
     </div>
 </section>
 
-<section class="product-grid" data-filters-block aria-label="Product results" aria-live="polite">
+<section
+    id="product-results"
+    class="product-grid"
+    data-filters-block
+    aria-label="Результаты фильтрации"
+    data-i18n-aria-label="productResults"
+    aria-live="polite"
+>
     <?= $productsHtml ?>
 </section>

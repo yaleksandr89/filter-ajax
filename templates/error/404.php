@@ -14,24 +14,46 @@
     <meta name="theme-color" content="#f5f5f3">
     <script src="/assets/js/ui.js"></script>
     <link rel="stylesheet" href="/assets/css/app.css">
-    <title>404 — Page not found</title>
-    <meta name="description" content="The requested page could not be found.">
+    <title data-i18n="notFoundDocumentTitle">404 — Страница не найдена</title>
+    <meta
+        name="description"
+        content="Запрошенная страница не найдена."
+        data-i18n-content="notFoundDescription"
+    >
 </head>
 <body class="page-404">
 <header class="app-header">
     <div class="shell app-header__inner">
-        <a class="brand" href="/" aria-label="Ajax filter — home">
+        <a class="brand" href="/" aria-label="Ajax filter — на главную" data-i18n-aria-label="homeAria">
             <img class="brand__mark" src="/assets/logotype.png" width="48" height="48" alt="">
             <span class="brand__text">
                 <strong>Ajax filter</strong>
-                <span>Native PHP product explorer</span>
+                <span data-i18n="brandSubtitle">Каталог товаров на чистом PHP</span>
             </span>
         </a>
 
-        <div class="theme-control" role="group" aria-label="Color theme">
-            <button type="button" data-theme-option="light" aria-pressed="false">Light</button>
-            <button type="button" data-theme-option="system" aria-pressed="true">System</button>
-            <button type="button" data-theme-option="dark" aria-pressed="false">Dark</button>
+        <div class="app-header__actions">
+            <div
+                class="language-control"
+                role="group"
+                aria-label="Язык интерфейса"
+                data-i18n-aria-label="languageControl"
+            >
+                <span class="language-control__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M3 12h18M12 3c2.4 2.5 3.6 5.5 3.6 9S14.4 18.5 12 21M12 3C9.6 5.5 8.4 8.5 8.4 12S9.6 18.5 12 21"></path>
+                    </svg>
+                </span>
+                <button type="button" data-language-option="ru" aria-pressed="true">RU</button>
+                <button type="button" data-language-option="en" aria-pressed="false">EN</button>
+            </div>
+
+            <div class="theme-control" role="group" aria-label="Цветовая тема" data-i18n-aria-label="themeControl">
+                <button type="button" data-theme-option="light" aria-pressed="false" data-i18n="themeLight">Светлая</button>
+                <button type="button" data-theme-option="system" aria-pressed="true" data-i18n="themeSystem">Система</button>
+                <button type="button" data-theme-option="dark" aria-pressed="false" data-i18n="themeDark">Тёмная</button>
+            </div>
         </div>
     </div>
 </header>
@@ -39,28 +61,44 @@
 <main class="shell not-found">
     <section class="not-found__panel" aria-labelledby="not-found-title">
         <p class="not-found__code" aria-hidden="true">404</p>
-        <p class="eyebrow">Outside the catalogue</p>
-        <h1 id="not-found-title">Page not found</h1>
-        <p class="not-found__message">
-            The page may have moved, or the address may be incomplete.
+        <p class="eyebrow" data-i18n="notFoundEyebrow">За пределами каталога</p>
+        <h1 id="not-found-title" data-i18n="notFoundTitle">Страница не найдена</h1>
+        <p class="not-found__message" data-i18n="notFoundMessage">
+            Возможно, страница была перемещена или адрес указан не полностью.
         </p>
 
         <div class="not-found__actions">
-            <a class="primary-button" href="/">Back to home</a>
+            <a class="primary-button" href="/" data-i18n="backHome">На главную</a>
             <a
                 class="text-link"
                 href="mailto:yaleksandr89@gmail.com?subject=Letter%20from%20the%20site%20ajax%20filter%20(Error%20404)&amp;body=Hello!"
+                data-i18n="contactAuthor"
             >
-                Contact the author
+                Написать автору
             </a>
         </div>
 
         <p class="redirect-note">
-            Automatic return home in
+            <span data-i18n="redirectPrefix">Автоматический возврат на главную через</span>
             <strong data-redirect-countdown="10">10</strong>
-            <span data-countdown-unit>seconds</span>.
+            <span data-countdown-unit>секунд</span>.
         </p>
     </section>
 </main>
+
+<footer class="app-footer">
+    <div class="shell app-footer__inner">
+        <p>
+            <a href="https://yaleksandr89.github.io/" target="_blank" rel="me noopener" data-i18n="authorName">Александр Юрченко</a>
+            <span aria-hidden="true">•</span>
+            <a
+                href="https://github.com/yaleksandr89/filter-ajax"
+                target="_blank"
+                rel="noopener"
+                data-i18n="sourceCode"
+            >Исходный код на GitHub</a>
+        </p>
+    </div>
+</footer>
 </body>
 </html>
