@@ -1,13 +1,17 @@
 # AJAX Filter
 
 [![Source Code](https://img.shields.io/badge/source-yaleksandr89%2Ffilter--ajax-blue.svg?style=flat-square)](https://github.com/yaleksandr89/filter-ajax)
-[![CI](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml/badge.svg)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
+[![PHP](https://img.shields.io/badge/PHP-8.5-777BB4.svg?style=flat-square&logo=php&logoColor=white)](https://www.php.net/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-Native-F7DF1E.svg?style=flat-square&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![MariaDB](https://img.shields.io/badge/MariaDB-12.3-003545.svg?style=flat-square&logo=mariadb&logoColor=white)](https://mariadb.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![CI](https://img.shields.io/github/actions/workflow/status/yaleksandr89/filter-ajax/ci.yml?style=flat-square&label=CI)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](../../LICENSE.md)
 
 <p align="center">
   <img
     src="../img/filter-ajax-readme-cover.png"
-    alt="AJAX Filter — sichere dynamische Filterung für PHP mit AJAX und datenbankgestützten Listen"
+    alt="AJAX Filter — Produktkatalog mit AJAX-Filterung in reinem PHP"
     width="100%"
   >
 </p>
@@ -18,57 +22,62 @@
 |---|---|---|---|---|---|
 | [Русский](../../README.md) | [English](README_en.md) | [Español](README_es.md) | [中文](README_zh.md) | [Français](README_fr.md) | **Ausgewählt** |
 
-## Beschreibung
+`AJAX Filter` ist ein kleiner PHP-Katalog, in dem Produkte nach Kategorie, Farbe und Gewicht gefiltert werden, ohne die Seite neu zu laden. Das Projekt zeigt kompakt das Zusammenspiel von PHP, PDO, MariaDB und nativem JavaScript, ohne Composer oder Frontend-Bibliotheken.
 
-`AJAX Filter` ist ein kleines PHP-Demoprojekt, das Produkte nach Kategorie, Farbe und Gewicht filtert, ohne die Seite neu zu laden. Der Client verwendet natives JavaScript und `fetch()`, der Server PHP und PDO.
+## Funktionen
 
-Das Projekt verwendet bewusst weder Composer noch JavaScript-Bibliotheken und behält eine einfache Struktur zum Erlernen grundlegender AJAX-Filterung bei.
-
-## Stack
-
-- PHP 8.5
-- MySQL / MariaDB über PDO
-- Natives JavaScript
-- Natives CSS
-- Nginx + PHP-FPM für das mitgelieferte Serverbeispiel
+- Produktfilterung nach Kategorie, Farbe und Gewicht über `fetch()` ohne Neuladen der Seite.
+- Ausgewählte Filter werden in der PHP-Session gespeichert.
+- Asynchrones Zurücksetzen aller aktiven Filter.
+- Zwei Datenbankmodi: leeres Schema und Demodaten.
+- Lokaler Docker-Stack mit Nginx, PHP-FPM, MariaDB und Xdebug.
 
 ## Schnellstart
 
-1. Erstellen Sie eine Datenbank und importieren Sie [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql).
-2. Kopieren Sie [`config/database.php.example`](../../config/database.php.example) nach `config/database.php`.
-3. Ersetzen Sie die Platzhalter in `config/database.php` durch lokale Datenbankwerte. Diese Datei wird von Git ignoriert.
-4. Alternativ können Sie `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` und `DB_CHARSET` setzen; Umgebungswerte überschreiben Dateiwerten.
-5. Passen Sie sowohl das Document Root des Webservers als auch `fastcgi_pass` an Ihre lokale Umgebung an. Ein Nginx-Beispiel befindet sich in [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf).
-6. Öffnen Sie die Anwendung über den konfigurierten lokalen Host.
+Benötigt werden Git, Docker mit Compose v2 und `make`.
 
-## Funktionsweise der Filterung
+| Schritt | Befehl | Zweck |
+|---|---|---|
+| 1 | `git clone https://github.com/yaleksandr89/filter-ajax.git` | Repository klonen. |
+| 2 | `cd filter-ajax` | In das Projektverzeichnis wechseln. |
+| 3 | `make build` | Lokale Docker-Images bauen. |
+| 4 | `make up` | Stack starten und auf die Bereitschaft der Services warten. |
 
-Wenn sich ein Filter ändert, sendet der Browser eine Anfrage an `/ajax-filter`. Der Server akzeptiert ausschließlich die Felder `category`, `color` und `weight`, speichert aktive Filter in der Session und führt eine parametrisierte PDO-Abfrage aus.
+Öffnen Sie [http://127.0.0.1:8080](http://127.0.0.1:8080). Standardmäßig wird `DB_MODE=demo` verwendet; für ein leeres Schema führen Sie `make up DB_MODE=schema` mit einem neuen Volume aus. Details zu Volumes, Konfiguration und Diagnose stehen im [Entwicklungsleitfaden](development_de.md).
 
-<details>
-  <summary>Filter-Demo</summary>
+## Architektur und Projektstruktur
 
-![AJAX Filter demo](../img/ajax-filter-main.gif)
-</details>
-
-## Theme-Umschaltung
-
-Die Oberfläche unterstützt helle, dunkle und systemabhängige Themes mit projektinternem CSS und nativem JavaScript; das System-Theme folgt der Betriebssystemeinstellung.
-
-<details>
-  <summary>Theme-Demo</summary>
-
-![AJAX Filter theme demo](../img/ajax-filter-theme-color.gif)
-</details>
+Anwendungsstruktur, Request-Flow, Filter, Session, PDO und Templates werden im separaten [Architekturleitfaden](architecture_de.md) beschrieben.
 
 ## Prüfungen
 
-GitHub Actions prüft:
+Die wichtigsten Prüfungen stehen über das Makefile zur Verfügung:
 
-- PHP-Syntax;
-- JavaScript-Syntax;
-- Eigene Regressionstests für Filternormalisierung und Session-Semantik, SQL-Allowlisting/-Parametrisierung und den deterministischen Query-Vertrag, Priorität/Validierung der Datenbankkonfiguration, HTML-Escaping und nativen Autoload.
+| Prüfung | Befehl |
+|---|---|
+| Aufgelöste Compose-Konfiguration | `make config` |
+| PHP-Regressionstests | `make php CMD="tests/run.php"` |
+| Runtime-Smoke-Test für einen bereits laufenden Stack | `make smoke` |
 
-## Lizenz
+CI für Pushes und Pull Requests nach `master` prüft PHP und JavaScript, Regressionstests, Docker-Konfiguration und beide Datenbankmodi.
 
-Das Projekt wird unter der [MIT](../../LICENSE.md)-Lizenz veröffentlicht.
+## Bewusst einfach gehalten
+
+- Kein PHP-Framework und kein ORM.
+- Keine Composer-Pakete.
+- Keine JavaScript-Abhängigkeiten und kein Frontend-Framework.
+- Keine separate API-Schicht.
+
+Ziel des Projekts ist es, einen kleinen vollständigen Filterablauf mit den grundlegenden Möglichkeiten von PHP, PDO und nativem JavaScript zu zeigen.
+
+## Feedback
+
+- Reproduzierbare Fehler: [GitHub Issues](https://github.com/yaleksandr89/filter-ajax/issues).
+- Fragen und Ideen: [GitHub Discussions](https://github.com/yaleksandr89/filter-ajax/discussions).
+
+---
+
+<p align="center">
+  Wenn das Projekt hilfreich war, geben Sie ihm einen Stern auf GitHub, damit andere Entwickler es leichter finden können.<br>
+  🤘
+</p>

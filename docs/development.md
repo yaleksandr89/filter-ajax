@@ -1,5 +1,11 @@
 # Разработка
 
+## Выберите язык
+
+| Русский | English | Español | 中文 | Français | Deutsch |
+|---|---|---|---|---|---|
+| **Выбран** | [English](langs/development_en.md) | [Español](langs/development_es.md) | [中文](langs/development_zh.md) | [Français](langs/development_fr.md) | [Deutsch](langs/development_de.md) |
+
 ## Требования к хосту
 
 Для основного Docker-сценария нужны:

@@ -1,5 +1,11 @@
 # Архитектура
 
+## Выберите язык
+
+| Русский | English | Español | 中文 | Français | Deutsch |
+|---|---|---|---|---|---|
+| **Выбран** | [English](langs/architecture_en.md) | [Español](langs/architecture_es.md) | [中文](langs/architecture_zh.md) | [Français](langs/architecture_fr.md) | [Deutsch](langs/architecture_de.md) |
+
 Приложение остаётся небольшим, но основные границы ответственности сделаны явными: точка входа собирает зависимости, контроллеры ведут HTTP-сценарий, фильтр отвечает за критерии и сессию, репозиторий — за чтение данных, а шаблоны — только за представление.
 
 ## Поток запроса

@@ -1,13 +1,17 @@
 # AJAX Filter
 
 [![Source Code](https://img.shields.io/badge/source-yaleksandr89%2Ffilter--ajax-blue.svg?style=flat-square)](https://github.com/yaleksandr89/filter-ajax)
-[![CI](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml/badge.svg)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
+[![PHP](https://img.shields.io/badge/PHP-8.5-777BB4.svg?style=flat-square&logo=php&logoColor=white)](https://www.php.net/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-Native-F7DF1E.svg?style=flat-square&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![MariaDB](https://img.shields.io/badge/MariaDB-12.3-003545.svg?style=flat-square&logo=mariadb&logoColor=white)](https://mariadb.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![CI](https://img.shields.io/github/actions/workflow/status/yaleksandr89/filter-ajax/ci.yml?style=flat-square&label=CI)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](../../LICENSE.md)
 
 <p align="center">
   <img
     src="../img/filter-ajax-readme-cover.png"
-    alt="AJAX Filter — 面向 PHP 的安全动态 AJAX 筛选与数据库列表过滤"
+    alt="AJAX Filter — 使用纯 PHP 实现 AJAX 筛选的商品目录"
     width="100%"
   >
 </p>
@@ -18,57 +22,62 @@
 |---|---|---|---|---|---|
 | [Русский](../../README.md) | [English](README_en.md) | [Español](README_es.md) | **已选** | [Français](README_fr.md) | [Deutsch](README_de.md) |
 
-## 描述
+`AJAX Filter` 是一个小型 PHP 商品目录，可以按类别、颜色和重量筛选商品，无需重新加载页面。项目以紧凑的形式展示 PHP、PDO、MariaDB 与原生 JavaScript 的协作，不使用 Composer 或前端库。
 
-`AJAX Filter` 是一个小型 PHP 演示项目，可按类别、颜色和重量筛选商品，并且无需重新加载页面。客户端使用原生 JavaScript 和 `fetch()`，服务端使用 PHP 和 PDO。
+## 功能
 
-项目有意不使用 Composer 或 JavaScript 库，并保持简单的结构，便于学习基础 AJAX 筛选流程。
-
-## 技术栈
-
-- PHP 8.5
-- 通过 PDO 使用 MySQL / MariaDB
-- 原生 JavaScript
-- 原生 CSS
-- Nginx + PHP-FPM，用于提供的服务器配置示例
+- 通过 `fetch()` 按类别、颜色和重量筛选商品，无需刷新页面。
+- 选中的筛选条件保存在 PHP session 中。
+- 异步重置所有活动筛选条件。
+- 两种数据库模式：空 schema 和演示数据。
+- 本地 Docker stack，包含 Nginx、PHP-FPM、MariaDB 和 Xdebug。
 
 ## 快速开始
 
-1. 创建数据库并导入 [`docs/mysql-dump/ajax-filter.sql`](../mysql-dump/ajax-filter.sql)。
-2. 将 [`config/database.php.example`](../../config/database.php.example) 复制到 `config/database.php`。
-3. 用本地数据库值替换 `config/database.php` 中的占位符。该文件已被 Git 忽略。
-4. 或者设置 `DB_HOST`、`DB_PORT`、`DB_NAME`、`DB_USER`、`DB_PASSWORD` 和 `DB_CHARSET`；环境变量会覆盖文件值。
-5. 请根据本地环境同时调整 Web 服务器的 document root 和 `fastcgi_pass`。Nginx 示例位于 [`docs/examples/nginx-configuration.conf`](../examples/nginx-configuration.conf)。
-6. 通过配置好的本地域名打开应用。
+需要 Git、支持 Compose v2 的 Docker，以及 `make`。
 
-## 筛选工作原理
+| 步骤 | 命令 | 用途 |
+|---|---|---|
+| 1 | `git clone https://github.com/yaleksandr89/filter-ajax.git` | 克隆仓库。 |
+| 2 | `cd filter-ajax` | 进入项目目录。 |
+| 3 | `make build` | 构建本地 Docker 镜像。 |
+| 4 | `make up` | 启动 stack 并等待服务就绪。 |
 
-筛选项发生变化时，浏览器向 `/ajax-filter` 发送请求。服务器只接受 `category`、`color` 和 `weight` 字段，将活动筛选条件保存在 session 中，并执行参数化 PDO 查询。
+打开 [http://127.0.0.1:8080](http://127.0.0.1:8080)。默认使用 `DB_MODE=demo`；如果需要空 schema，请在新 volume 上执行 `make up DB_MODE=schema`。volume、配置和诊断的说明见[开发指南](development_zh.md)。
 
-<details>
-  <summary>筛选演示</summary>
+## 架构与项目结构
 
-![AJAX Filter demo](../img/ajax-filter-main.gif)
-</details>
-
-## 主题切换
-
-界面使用项目自有 CSS 和原生 JavaScript 支持浅色、深色和系统主题；系统主题遵循操作系统偏好。
-
-<details>
-  <summary>主题切换演示</summary>
-
-![AJAX Filter theme demo](../img/ajax-filter-theme-color.gif)
-</details>
+应用结构、请求流程、筛选条件、session、PDO 和模板的工作方式见[架构说明](architecture_zh.md)。
 
 ## 检查
 
-GitHub Actions 会检查：
+主要检查通过 Makefile 提供：
 
-- PHP 语法；
-- JavaScript 语法；
-- 关于筛选规范化和 session 语义、SQL 白名单/参数化及其确定性查询契约、数据库配置优先级/验证、HTML 转义和原生 autoload 的第一方回归测试。
+| 检查 | 命令 |
+|---|---|
+| 最终 Compose 配置 | `make config` |
+| PHP 回归测试 | `make php CMD="tests/run.php"` |
+| 已运行 stack 的 runtime smoke 检查 | `make smoke` |
 
-## 许可证
+针对 `master` 的 push 和 pull request，CI 会检查 PHP 和 JavaScript、回归测试、Docker 配置以及两种数据库模式。
 
-项目采用 [MIT](../../LICENSE.md) 许可证发布。
+## 有意保持简单的部分
+
+- 不使用 PHP framework 或 ORM。
+- 不使用 Composer package。
+- 不使用 JavaScript 依赖或 frontend framework。
+- 不增加独立 API 层。
+
+项目目标是使用 PHP、PDO 和原生 JavaScript 的基础能力展示一个小而完整的筛选流程。
+
+## 反馈
+
+- 可复现的错误：[GitHub Issues](https://github.com/yaleksandr89/filter-ajax/issues)。
+- 问题和想法：[GitHub Discussions](https://github.com/yaleksandr89/filter-ajax/discussions)。
+
+---
+
+<p align="center">
+  如果这个项目对你有帮助，请在 GitHub 上点一颗 Star，让其他开发者更容易找到它。<br>
+  🤘
+</p>
