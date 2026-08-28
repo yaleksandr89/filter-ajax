@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas / Вопросы и идеи
+    url: https://github.com/yaleksandr89/filter-ajax/discussions
+    about: Ask questions and discuss broad ideas before turning them into a concrete change. / Задавайте вопросы и обсуждайте общие идеи до оформления конкретного изменения.
+  - name: Development guide / Руководство по разработке
+    url: https://github.com/yaleksandr89/filter-ajax/blob/master/docs/development.md
+    about: Local setup, Make commands, database modes, and project checks. / Локальный запуск, Make-команды, режимы базы и проверки проекта.
