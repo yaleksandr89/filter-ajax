@@ -17,4 +17,5 @@ trim_trailing_whitespace = false
 [*.{json,webmanifest}]
 indent_size = 2
 
-[*.min.{js,css}]
+[Makefile]
+indent_style = tab
