@@ -7,7 +7,7 @@
 <p align="center">
   <img
     src="docs/img/filter-ajax-readme-cover.png"
-    alt="AJAX Filter — secure dynamic filtering for PHP with AJAX and database-backed lists"
+    alt="AJAX Filter — каталог товаров с AJAX-фильтрацией на чистом PHP"
     width="100%"
   >
 </p>
@@ -18,56 +18,55 @@
 |---|---|---|---|---|---|
 | **Выбран** | [English](docs/langs/README_en.md) | [Español](docs/langs/README_es.md) | [中文](docs/langs/README_zh.md) | [Français](docs/langs/README_fr.md) | [Deutsch](docs/langs/README_de.md) |
 
-## Описание
+`AJAX Filter` — небольшой PHP-каталог, в котором товары фильтруются по категории, цвету и весу без перезагрузки страницы. Это компактный пример связки PHP, PDO, MariaDB и нативного JavaScript — без Composer и frontend-библиотек.
 
-`AJAX Filter` — небольшой демонстрационный PHP-проект с фильтрацией товаров по категории, цвету и весу без перезагрузки страницы. Клиентская часть использует нативный JavaScript и `fetch()`, серверная — PHP и PDO.
+## Возможности
 
-Проект намеренно не использует Composer или JavaScript-библиотеки и сохраняет простую структуру, подходящую для изучения базовой AJAX-фильтрации.
-
-## Стек
-
-- PHP 8.5
-- MySQL / MariaDB через PDO
-- Нативный JavaScript
-- Нативный CSS
-- Nginx + PHP-FPM для приведённого примера запуска
+- Фильтрация товаров по категории, цвету и весу через `fetch()` без перезагрузки страницы.
+- Сохранение выбранных фильтров в PHP-сессии.
+- Асинхронный сброс всех активных фильтров.
+- Русский и английский интерфейс с переключением без перезагрузки страницы.
+- Светлая, системная и тёмная темы.
+- Демо- и пустой `schema`-режимы базы данных.
+- Локальный Docker-стек с Nginx, PHP-FPM, MariaDB и Xdebug.
 
 ## Быстрый старт
 
-1. Создайте базу данных и импортируйте [`docs/mysql-dump/ajax-filter.sql`](docs/mysql-dump/ajax-filter.sql).
-2. Скопируйте [`config/database.php.example`](config/database.php.example) в `config/database.php`.
-3. Укажите в `config/database.php` локальные параметры подключения к базе данных. Этот файл исключён из Git.
-4. Либо задайте `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` и `DB_CHARSET`; значения окружения переопределяют значения из файла.
-5. Настройте document root веб-сервера и `fastcgi_pass` под локальную среду. Пример для Nginx находится в [`docs/examples/nginx-configuration.conf`](docs/examples/nginx-configuration.conf).
-6. Откройте приложение через настроенный локальный host.
+Нужны Git, Docker с Compose v2 и `make`.
 
-## Как работает фильтрация
+```bash
+git clone https://github.com/yaleksandr89/filter-ajax.git
+cd filter-ajax
+make build
+make up
+```
 
-При изменении любого фильтра браузер отправляет запрос на `/ajax-filter`. Сервер принимает только поддерживаемые поля `category`, `color` и `weight`, сохраняет активные фильтры в сессии и выполняет параметризованный PDO-запрос.
+Откройте `http://127.0.0.1:8080`. По умолчанию запускается `DB_MODE=demo`; для пустой схемы используйте `make up DB_MODE=schema` на новом томе. Подробности о томах, настройке и диагностике — в [руководстве по разработке](docs/development.md).
 
-<details>
-  <summary>Демонстрация фильтрации</summary>
+## Как устроено
 
-![AJAX Filter demo](docs/img/ajax-filter-main.gif)
-</details>
-
-## Переключение темы
-
-Интерфейс поддерживает светлую, тёмную и системную темы средствами проектных CSS и нативного JavaScript; системная тема следует настройкам ОС.
-
-<details>
-  <summary>Демонстрация переключения темы</summary>
-
-![AJAX Filter theme demo](docs/img/ajax-filter-theme-color.gif)
-</details>
+`public/index.php` собирает приложение и обрабатывает только `/` и `/ajax-filter`. Контроллеры используют `ProductFilter`, репозиторий на PDO и шаблоны; браузер обновляет только блок результатов. Краткая карта компонентов и границ — в [описании архитектуры](docs/architecture.md).
 
 ## Проверки
 
-GitHub Actions проверяет:
+`make config` проверяет итоговую Compose-конфигурацию без запуска сервисов. Для уже запущенного стека используйте:
 
-- синтаксис PHP;
-- синтаксис JavaScript;
-- regression tests для нормализации фильтров и семантики сессии, SQL allowlisting/параметризации и детерминированного SQL-контракта, приоритета/валидации конфигурации БД, HTML escaping и нативного autoload.
+```bash
+make php CMD="tests/run.php"
+make smoke
+```
+
+CI для push и pull request в `master` проверяет PHP и JavaScript, регрессионные тесты, Docker-конфигурацию и оба режима базы.
+
+## Что намеренно оставлено простым
+
+Здесь нет фреймворка, ORM, Composer-пакетов, JavaScript-зависимостей и отдельного API-слоя. Цель проекта — показать небольшой законченный поток фильтрации, а не заменить полноценный каталог.
+
+## Обратная связь
+
+Вопросы и предложения можно оставить в [GitHub Issues](https://github.com/yaleksandr89/filter-ajax/issues).
+
+Запустите проект локально, выберите несколько фильтров и посмотрите, как PHP-сессия и AJAX работают вместе.
 
 ## Лицензия
 
