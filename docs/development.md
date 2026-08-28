@@ -8,26 +8,30 @@
 - Docker Engine с Compose v2;
 - `make`.
 
-PHP, MariaDB и Xdebug отдельно на хост устанавливать не требуется. PHP-контейнер использует PHP 8.5.9-FPM с `pdo_mysql` и Xdebug 3.5.3; в составе стека также работают Nginx и MariaDB. HTTP-порт по умолчанию — `127.0.0.1:8080`.
+PHP, MariaDB и Xdebug отдельно на хост устанавливать не требуется. PHP-контейнер использует PHP 8.5.9-FPM с `pdo_mysql` и Xdebug 3.5.3; в составе стека также работают Nginx и MariaDB.
 
-## Первый запуск
+## Запуск без Docker
 
-| Шаг | Команда | Назначение |
-|---|---|---|
-| 1 | `make build` | Собрать локальные Docker-образы. |
-| 2 | `make up` | Запустить стек и дождаться готовности сервисов. |
+Проект можно подключить к доступной MariaDB с PHP 8.5, расширением PDO MySQL и PHP-FPM. Создайте базу, выполните [`docker/mariadb/schema.sql`](../docker/mariadb/schema.sql) и при необходимости [`docker/mariadb/demo-data.sql`](../docker/mariadb/demo-data.sql), затем настройте `config/database.php` или переменные `DB_*`.
 
-После готовности сервисов приложение доступно по адресу [http://127.0.0.1:8080](http://127.0.0.1:8080). Значения по умолчанию: `PROJECT=filter-ajax`, `HTTP_PORT=8080`, `DB_MODE=demo`.
+Веб-сервер должен указывать document root на `public/`. Для Nginx с локальным Unix socket PHP-FPM используйте и адаптируйте [справочный пример](examples/nginx-configuration.conf): он направляет обычные URI в front controller и не открывает прямые PHP-URI.
 
-Для другого локального порта используйте `make up HTTP_PORT=18080`.
+## Первый запуск в Docker
 
-Остановка стека командой `make down` не удаляет данные базы.
+| Команда | Назначение |
+|---|---|
+| `make build` | Собрать локальные Docker-образы. |
+| `make up` | Запустить стек и дождаться готовности сервисов. |
+| `make down` | Остановить сервисы, сохранив данные базы. |
 
-## Изменения без пересборки
+После готовности сервисов приложение доступно по адресу [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
-Корень проекта смонтирован в сервис `php` только для чтения, а `public/` — в `nginx` также только для чтения. Поэтому изменения PHP-кода, шаблонов и файлов из `public/` подхватываются работающим стеком без rebuild.
+> [!NOTE]
+> Если `127.0.0.1:8080` уже занят, используйте другой локальный порт, например: `make up HTTP_PORT=18080`.
 
-Пересоберите образы после изменений `docker/php/Dockerfile`, `docker/php/conf.d/zz-xdebug.ini`, Dockerfile/инициализации MariaDB или Dockerfile/конфигурации Nginx. Изменение режима базы на уже существующем томе не переинициализирует данные.
+## Когда нужна пересборка
+
+Пересоберите образы после изменений Dockerfile или конфигурации образов в `docker/php/`, `docker/mariadb/` или `docker/nginx/`. Изменение режима базы на уже существующем томе не переинициализирует данные.
 
 ## Команды Makefile
 
@@ -84,12 +88,24 @@ PHP, MariaDB и Xdebug отдельно на хост устанавливать
 
 Для не-Docker запуска скопируйте [`config/database.php.example`](../config/database.php.example) в `config/database.php`. Этот локальный файл исключён из Git. Команда: `cp config/database.php.example config/database.php`.
 
-`DatabaseConfig` начинает с `host=127.0.0.1`, `port=3306` и `charset=utf8mb4`, затем применяет `config/database.php`, а после него переменные окружения. Последние имеют приоритет: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_CHARSET`.
+`DatabaseConfig` применяет настройки в следующем порядке:
 
-Значения `host`, `name`, `user` и `charset` должны быть непустыми строками; пароль должен быть строкой; порт — целым числом от 1 до 65535; `charset` допускает только буквы, цифры и `_`.
+1. встроенные значения по умолчанию;
+2. `config/database.php`, если файл существует;
+3. переменные окружения `DB_*`.
 
-## Краткий запуск без Docker
+Переменные окружения имеют наивысший приоритет:
 
-Проект можно подключить к доступной MariaDB с PHP 8.5, расширением PDO MySQL и PHP-FPM. Создайте базу, выполните [`docker/mariadb/schema.sql`](../docker/mariadb/schema.sql) и при необходимости [`docker/mariadb/demo-data.sql`](../docker/mariadb/demo-data.sql), затем настройте `config/database.php` или переменные `DB_*`.
+- `DB_HOST`;
+- `DB_PORT`;
+- `DB_NAME`;
+- `DB_USER`;
+- `DB_PASSWORD`;
+- `DB_CHARSET`.
 
-Веб-сервер должен указывать document root на `public/`. Для Nginx с локальным Unix socket PHP-FPM используйте и адаптируйте [справочный пример](examples/nginx-configuration.conf): он направляет обычные URI в front controller и не открывает прямые PHP-URI.
+Перед подключением проверяются основные значения:
+
+- `host`, `name`, `user` и `charset` должны быть непустыми строками;
+- `password` должен быть строкой;
+- `port` должен быть целым числом от 1 до 65535;
+- `charset` может содержать только буквы, цифры и `_`.
