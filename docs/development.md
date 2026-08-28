@@ -1,33 +1,29 @@
 # Разработка
 
-[← К README](../README.md)
-
 ## Требования к хосту
 
-Основной путь запуска рассчитан на Docker Engine с Compose v2 и `make`. Контейнерный образ использует PHP 8.5.9-FPM с `pdo_mysql` и Xdebug 3.5.3; в составе стека также Nginx и MariaDB. HTTP-порт по умолчанию — `127.0.0.1:8080`.
+Для основного Docker-сценария нужны:
+
+- Git;
+- Docker Engine с Compose v2;
+- `make`.
+
+PHP, MariaDB и Xdebug отдельно на хост устанавливать не требуется. PHP-контейнер использует PHP 8.5.9-FPM с `pdo_mysql` и Xdebug 3.5.3; в составе стека также работают Nginx и MariaDB. HTTP-порт по умолчанию — `127.0.0.1:8080`.
 
 ## Первый запуск
 
-```bash
-make build
-make up
-```
+| Шаг | Команда | Назначение |
+|---|---|---|
+| 1 | `make build` | Собрать локальные Docker-образы. |
+| 2 | `make up` | Запустить стек и дождаться готовности сервисов. |
 
-После готовности сервисов приложение доступно по адресу `http://127.0.0.1:8080`. Значения по умолчанию: `PROJECT=filter-ajax`, `HTTP_PORT=8080`, `DB_MODE=demo`.
+После готовности сервисов приложение доступно по адресу [http://127.0.0.1:8080](http://127.0.0.1:8080). Значения по умолчанию: `PROJECT=filter-ajax`, `HTTP_PORT=8080`, `DB_MODE=demo`.
 
-Для другого локального порта:
+Для другого локального порта используйте `make up HTTP_PORT=18080`.
 
-```bash
-make up HTTP_PORT=18080
-```
+Остановка стека командой `make down` не удаляет данные базы.
 
-Остановка стека не удаляет данные базы:
-
-```bash
-make down
-```
-
-## Live bind mounts
+## Изменения без пересборки
 
 Корень проекта смонтирован в сервис `php` только для чтения, а `public/` — в `nginx` также только для чтения. Поэтому изменения PHP-кода, шаблонов и файлов из `public/` подхватываются работающим стеком без rebuild.
 
@@ -61,46 +57,32 @@ make down
 
 `make db-reinit` останавливает стек, удаляет только том базы текущего Compose-проекта, запускает сервисы заново и выполняет `db-check`. Это необратимо для данных в этом томе.
 
-Команда требует точного подтверждения `CONFIRM=filter_ajax_db`, принимает только `schema` или `demo` и перед удалением проверяет Compose-метки существующего тома. Например:
-
-```bash
-make db-reinit CONFIRM=filter_ajax_db DB_MODE=demo
-```
+Команда требует точного подтверждения `CONFIRM=filter_ajax_db`, принимает только `schema` или `demo` и перед удалением проверяет Compose-метки существующего тома. Пример: `make db-reinit CONFIRM=filter_ajax_db DB_MODE=demo`.
 
 Не запускайте её для обычной перезагрузки данных: `make down` сохраняет том, а `make up` использует его повторно.
 
 ## Xdebug
 
-В PHP-образ уже включён Xdebug 3.5.3. Его настройки: `xdebug.mode=debug`, `xdebug.start_with_request=trigger`, `xdebug.client_host=host.docker.internal`, `xdebug.client_port=9003`. Для просмотра фактической конфигурации используйте:
+В PHP-образ уже включён Xdebug 3.5.3. Его настройки: `xdebug.mode=debug`, `xdebug.start_with_request=trigger`, `xdebug.client_host=host.docker.internal`, `xdebug.client_port=9003`.
 
-```bash
-make xdebug
-```
+Фактическую конфигурацию можно посмотреть командой `make xdebug`.
 
 ## Проверки
 
-Без запуска сервисов можно проверить итоговую Compose-конфигурацию:
+Без запуска сервисов итоговую Compose-конфигурацию проверяет `make config`.
 
-```bash
-make config
-```
+Для уже работающего стека:
 
-Когда все сервисы уже работают, выполните регрессионные тесты внутри PHP-контейнера и runtime smoke:
-
-```bash
-make php CMD="tests/run.php"
-make smoke
-```
+| Проверка | Команда |
+|---|---|
+| Регрессионные PHP-тесты | `make php CMD="tests/run.php"` |
+| Runtime smoke | `make smoke` |
 
 `make smoke` проверяет основные HTTP-маршруты и статический asset, наличие `pdo_mysql`, версию Xdebug и состояние базы. CI запускается для push и pull request в `master`; он проверяет синтаксис PHP и JavaScript, регрессионные тесты, Docker-конфигурацию и smoke-сценарии в режимах `schema` и `demo`.
 
 ## Конфигурация БД и приоритеты
 
-Для не-Docker запуска скопируйте [`config/database.php.example`](../config/database.php.example) в `config/database.php`. Этот локальный файл исключён из Git.
-
-```bash
-cp config/database.php.example config/database.php
-```
+Для не-Docker запуска скопируйте [`config/database.php.example`](../config/database.php.example) в `config/database.php`. Этот локальный файл исключён из Git. Команда: `cp config/database.php.example config/database.php`.
 
 `DatabaseConfig` начинает с `host=127.0.0.1`, `port=3306` и `charset=utf8mb4`, затем применяет `config/database.php`, а после него переменные окружения. Последние имеют приоритет: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_CHARSET`.
 
