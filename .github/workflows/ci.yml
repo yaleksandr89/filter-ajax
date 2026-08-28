@@ -99,7 +99,7 @@ jobs:
           test "$(db_count colors)" = 0
           test "$(db_count weights)" = 0
           test "$(db_count products)" = 0
-          grep -Fq 'No matching products' /tmp/home.html
+          grep -Fq 'Ничего не найдено' /tmp/home.html
 
       - name: Verify demo mode
         if: matrix.db_mode == 'demo'
@@ -115,7 +115,7 @@ jobs:
           test "$(db_count products)" = 30
           curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop' | grep -Fq 'product-card'
           curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Black&weight=3kg' | grep -Fq 'Atlas L300'
-          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Green&weight=9kg' | grep -Fq 'No matching products'
+          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Green&weight=9kg' | grep -Fq 'Ничего не найдено'
 
       - name: Tear down stack
         if: always()

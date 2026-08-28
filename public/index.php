@@ -62,5 +62,5 @@ try {
         header('Content-Type: text/plain; charset=UTF-8');
     }
 
-    echo 'Technical troubles in the site. Soon all fix.';
+    echo 'Внутренняя ошибка сервера. / Internal server error.';
 }
