@@ -6,3 +6,6 @@ contact_links:
   - name: Development guide / Руководство по разработке
     url: https://github.com/yaleksandr89/filter-ajax/blob/master/docs/development.md
     about: Local setup, Make commands, database modes, and project checks. / Локальный запуск, Make-команды, режимы базы и проверки проекта.
+  - name: Security issue / Проблема безопасности
+    url: https://github.com/yaleksandr89/filter-ajax/security/policy
+    about: Do not publish sensitive details; read the security policy first. / Не публикуйте чувствительные детали; сначала прочитайте политику безопасности.
