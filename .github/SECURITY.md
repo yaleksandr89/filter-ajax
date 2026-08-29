@@ -1,5 +1,11 @@
 # Политика безопасности
 
+## Выберите язык
+
+| Русский | English | Español | 中文 | Français | Deutsch |
+|---|---|---|---|---|---|
+| **Русский** | [English](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/security/SECURITY_en.md) | [Español](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/security/SECURITY_es.md) | [中文](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/security/SECURITY_zh.md) | [Français](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/security/SECURITY_fr.md) | [Deutsch](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/security/SECURITY_de.md) |
+
 ## Поддерживаемые версии
 
 Исправления безопасности рассматриваются для актуального состояния `master` и последнего опубликованного релиза.
@@ -21,7 +27,7 @@
 - утечка внутренних деталей приложения через сообщения об ошибках или логи;
 - небезопасные изменения Docker/Nginx/PHP-конфигурации, которые делают внутренние файлы или сервисы доступными извне.
 
-Обычные ошибки без security impact следует публиковать через GitHub Issues. Вопросы и общие идеи лучше обсуждать в GitHub Discussions.
+Обычные ошибки без security impact следует публиковать через [GitHub Issues](https://github.com/yaleksandr89/filter-ajax/issues). Вопросы и общие идеи лучше обсуждать в [GitHub Discussions](https://github.com/yaleksandr89/filter-ajax/discussions).
 
 ## Как сообщить об уязвимости
 

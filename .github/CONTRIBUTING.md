@@ -1,11 +1,17 @@
 # Участие в разработке
 
+## Выберите язык
+
+| Русский | English | Español | 中文 | Français | Deutsch |
+|---|---|---|---|---|---|
+| **Русский** | [English](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/contributing/CONTRIBUTING_en.md) | [Español](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/contributing/CONTRIBUTING_es.md) | [中文](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/contributing/CONTRIBUTING_zh.md) | [Français](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/contributing/CONTRIBUTING_fr.md) | [Deutsch](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/contributing/CONTRIBUTING_de.md) |
+
 Спасибо за интерес к AJAX Filter. Проект небольшой, поэтому изменения лучше держать ограниченными, воспроизводимыми и простыми для проверки.
 
 ## Перед началом
 
-- О воспроизводимой ошибке сообщите через GitHub Issues.
-- Вопросы и общие идеи лучше сначала обсудить в GitHub Discussions.
+- О воспроизводимой ошибке сообщите через [GitHub Issues](https://github.com/yaleksandr89/filter-ajax/issues).
+- Вопросы и общие идеи лучше сначала обсудить в [GitHub Discussions](https://github.com/yaleksandr89/filter-ajax/discussions).
 - Не публикуйте пароли, токены, production-конфигурацию, персональные данные и другие чувствительные сведения.
 - Перед крупным изменением убедитесь, что оно соответствует назначению проекта и не добавляет инфраструктуру или зависимости без явной необходимости.
 
@@ -21,7 +27,7 @@
 - Режимы `schema` и `demo` применяются только при инициализации нового тома MariaDB.
 - Изменения не должны добавлять framework layer, ORM, DI-контейнер, отдельный API, автоматические retry/cache/fallback или другие новые подсистемы без отдельного решения.
 
-Подробнее устройство приложения описано в [документе об архитектуре](../docs/architecture.md), а локальный запуск и проверки — в [руководстве по разработке](../docs/development.md).
+Подробнее устройство приложения описано в [документе об архитектуре](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/architecture.md), а локальный запуск и проверки — в [руководстве по разработке](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/development.md).
 
 ## Ветки
 
@@ -54,7 +60,7 @@ chore: обновить конфигурацию CI
 | PHP-поведение приложения | `make php CMD="tests/run.php"` |
 | HTTP/runtime-поведение запущенного стека | `make smoke` |
 
-Для запуска проекта и полного списка Make-команд используйте [руководство по разработке](../docs/development.md).
+Для запуска проекта и полного списка Make-команд используйте [руководство по разработке](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/development.md).
 
 Если изменение затрагивает режим базы или её инициализацию, проверяйте его на новом томе. `make db-reinit` удаляет данные только из тома базы текущего Compose-проекта и должен использоваться осознанно.
 
