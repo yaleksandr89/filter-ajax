@@ -27,7 +27,7 @@ Gracias por tu interés en AJAX Filter. El proyecto es pequeño, por lo que los 
 - Los modos `schema` y `demo` se aplican únicamente al inicializar un volumen nuevo de MariaDB.
 - Los cambios no deben añadir framework layer, ORM, contenedor DI, API separada, retry/cache/fallback automáticos ni otros subsistemas nuevos sin una decisión independiente.
 
-La estructura de la aplicación se describe en la [guía de arquitectura](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/architecture_es.md), y el arranque local y las comprobaciones están en la [guía de desarrollo](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_es.md).
+La estructura de la aplicación se describe en la [guía de arquitectura](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/reference/architecture_es.md), y el arranque local y las comprobaciones están en la [guía de desarrollo](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_es.md).
 
 ## Ramas
 
@@ -60,7 +60,7 @@ Antes de un Pull Request, ejecuta las comprobaciones relacionadas con tu cambio:
 | Comportamiento PHP de la aplicación | `make php CMD="tests/run.php"` |
 | Comportamiento HTTP/runtime del stack iniciado | `make smoke` |
 
-Para iniciar el proyecto y consultar la lista completa de comandos Make, usa la [guía de desarrollo](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_es.md).
+Para iniciar el proyecto y consultar la lista completa de comandos Make, usa la [guía de desarrollo](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_es.md).
 
 Si el cambio afecta al modo de base de datos o a su inicialización, compruébalo con un volumen nuevo. `make db-reinit` elimina datos únicamente del volumen de base de datos del proyecto Compose actual y debe utilizarse de forma consciente.
 

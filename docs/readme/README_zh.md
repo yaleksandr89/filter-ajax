@@ -10,7 +10,7 @@
 
 <p align="center">
   <img
-    src="../img/filter-ajax-readme-cover.png"
+    src="../assets/filter-ajax-readme-cover.png"
     alt="AJAX Filter — 使用纯 PHP 实现 AJAX 筛选的商品目录"
     width="100%"
   >
@@ -20,7 +20,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../../README.md) | [English](README_en.md) | [Español](README_es.md) | **已选** | [Français](README_fr.md) | [Deutsch](README_de.md) |
+| [Русский](../../README.md) | [English](./README_en.md) | [Español](./README_es.md) | **已选** | [Français](./README_fr.md) | [Deutsch](./README_de.md) |
 
 `AJAX Filter` 是一个小型 PHP 商品目录，可以按类别、颜色和重量筛选商品，无需重新加载页面。项目以紧凑的形式展示 PHP、PDO、MariaDB 与原生 JavaScript 的协作，不使用 Composer 或前端库。
 
@@ -43,11 +43,11 @@
 | 3 | `make build` | 构建本地 Docker 镜像。 |
 | 4 | `make up` | 启动 stack 并等待服务就绪。 |
 
-打开 [http://127.0.0.1:8080](http://127.0.0.1:8080)。默认使用 `DB_MODE=demo`；如果需要空 schema，请在新 volume 上执行 `make up DB_MODE=schema`。volume、配置和诊断的说明见[开发指南](development_zh.md)。
+打开 [http://127.0.0.1:8080](http://127.0.0.1:8080)。默认使用 `DB_MODE=demo`；如果需要空 schema，请在新 volume 上执行 `make up DB_MODE=schema`。volume、配置和诊断的说明见[开发指南](../guides/development_zh.md)。
 
 ## 架构与项目结构
 
-应用结构、请求流程、筛选条件、session、PDO 和模板的工作方式见[架构说明](architecture_zh.md)。
+应用结构、请求流程、筛选条件、session、PDO 和模板的工作方式见[架构说明](../reference/architecture_zh.md)。
 
 ## 检查
 

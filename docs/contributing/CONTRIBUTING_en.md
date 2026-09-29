@@ -27,7 +27,7 @@ Thank you for your interest in AJAX Filter. The project is small, so changes sho
 - The `schema` and `demo` modes are applied only when a new MariaDB volume is initialized.
 - Changes must not add a framework layer, ORM, DI container, separate API, automatic retry/cache/fallback behavior, or other new subsystems without a separate decision.
 
-The application structure is described in the [architecture guide](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/architecture_en.md), while local startup and checks are covered by the [development guide](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_en.md).
+The application structure is described in the [architecture guide](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/reference/architecture_en.md), while local startup and checks are covered by the [development guide](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_en.md).
 
 ## Branches
 
@@ -60,7 +60,7 @@ Before a Pull Request, run the checks relevant to your change:
 | PHP application behavior | `make php CMD="tests/run.php"` |
 | HTTP/runtime behavior of a running stack | `make smoke` |
 
-For project startup and the full list of Make commands, use the [development guide](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_en.md).
+For project startup and the full list of Make commands, use the [development guide](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_en.md).
 
 If a change affects the database mode or database initialization, verify it with a new volume. `make db-reinit` removes data only from the current Compose project's database volume and must be used intentionally.
 

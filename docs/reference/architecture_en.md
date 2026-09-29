@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../architecture.md) | **Selected** | [Español](architecture_es.md) | [中文](architecture_zh.md) | [Français](architecture_fr.md) | [Deutsch](architecture_de.md) |
+| [Русский](./architecture.md) | **Selected** | [Español](./architecture_es.md) | [中文](./architecture_zh.md) | [Français](./architecture_fr.md) | [Deutsch](./architecture_de.md) |
 
 The application remains small, but its main responsibility boundaries are explicit: the entry point assembles dependencies, controllers coordinate the HTTP flow, the filter owns criteria and session state, the repository reads data, and templates are responsible only for presentation.
 

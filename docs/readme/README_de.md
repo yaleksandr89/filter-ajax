@@ -10,7 +10,7 @@
 
 <p align="center">
   <img
-    src="../img/filter-ajax-readme-cover.png"
+    src="../assets/filter-ajax-readme-cover.png"
     alt="AJAX Filter — Produktkatalog mit AJAX-Filterung in reinem PHP"
     width="100%"
   >
@@ -20,7 +20,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../../README.md) | [English](README_en.md) | [Español](README_es.md) | [中文](README_zh.md) | [Français](README_fr.md) | **Ausgewählt** |
+| [Русский](../../README.md) | [English](./README_en.md) | [Español](./README_es.md) | [中文](./README_zh.md) | [Français](./README_fr.md) | **Ausgewählt** |
 
 `AJAX Filter` ist ein kleiner PHP-Katalog, in dem Produkte nach Kategorie, Farbe und Gewicht gefiltert werden, ohne die Seite neu zu laden. Das Projekt zeigt kompakt das Zusammenspiel von PHP, PDO, MariaDB und nativem JavaScript, ohne Composer oder Frontend-Bibliotheken.
 
@@ -43,11 +43,11 @@ Benötigt werden Git, Docker mit Compose v2 und `make`.
 | 3 | `make build` | Lokale Docker-Images bauen. |
 | 4 | `make up` | Stack starten und auf die Bereitschaft der Services warten. |
 
-Öffnen Sie [http://127.0.0.1:8080](http://127.0.0.1:8080). Standardmäßig wird `DB_MODE=demo` verwendet; für ein leeres Schema führen Sie `make up DB_MODE=schema` mit einem neuen Volume aus. Details zu Volumes, Konfiguration und Diagnose stehen im [Entwicklungsleitfaden](development_de.md).
+Öffnen Sie [http://127.0.0.1:8080](http://127.0.0.1:8080). Standardmäßig wird `DB_MODE=demo` verwendet; für ein leeres Schema führen Sie `make up DB_MODE=schema` mit einem neuen Volume aus. Details zu Volumes, Konfiguration und Diagnose stehen im [Entwicklungsleitfaden](../guides/development_de.md).
 
 ## Architektur und Projektstruktur
 
-Anwendungsstruktur, Request-Flow, Filter, Session, PDO und Templates werden im separaten [Architekturleitfaden](architecture_de.md) beschrieben.
+Anwendungsstruktur, Request-Flow, Filter, Session, PDO und Templates werden im separaten [Architekturleitfaden](../reference/architecture_de.md) beschrieben.
 
 ## Prüfungen
 

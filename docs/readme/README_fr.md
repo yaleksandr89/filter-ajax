@@ -10,7 +10,7 @@
 
 <p align="center">
   <img
-    src="../img/filter-ajax-readme-cover.png"
+    src="../assets/filter-ajax-readme-cover.png"
     alt="AJAX Filter — catalogue de produits avec filtrage AJAX en PHP natif"
     width="100%"
   >
@@ -20,7 +20,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../../README.md) | [English](README_en.md) | [Español](README_es.md) | [中文](README_zh.md) | **Sélectionné** | [Deutsch](README_de.md) |
+| [Русский](../../README.md) | [English](./README_en.md) | [Español](./README_es.md) | [中文](./README_zh.md) | **Sélectionné** | [Deutsch](./README_de.md) |
 
 `AJAX Filter` est un petit catalogue PHP dans lequel les produits sont filtrés par catégorie, couleur et poids sans recharger la page. C'est un exemple compact réunissant PHP, PDO, MariaDB et JavaScript natif, sans Composer ni bibliothèque frontend.
 
@@ -43,11 +43,11 @@ Git, Docker avec Compose v2 et `make` sont nécessaires.
 | 3 | `make build` | Construire les images Docker locales. |
 | 4 | `make up` | Démarrer le stack et attendre que les services soient prêts. |
 
-Ouvrez [http://127.0.0.1:8080](http://127.0.0.1:8080). `DB_MODE=demo` est utilisé par défaut ; pour un schéma vide, exécutez `make up DB_MODE=schema` avec un nouveau volume. La gestion des volumes, la configuration et le diagnostic sont décrits dans le [guide de développement](development_fr.md).
+Ouvrez [http://127.0.0.1:8080](http://127.0.0.1:8080). `DB_MODE=demo` est utilisé par défaut ; pour un schéma vide, exécutez `make up DB_MODE=schema` avec un nouveau volume. La gestion des volumes, la configuration et le diagnostic sont décrits dans le [guide de développement](../guides/development_fr.md).
 
 ## Architecture et structure du projet
 
-La structure de l'application, le flux des requêtes, les filtres, la session, PDO et les templates sont décrits dans le [guide d'architecture](architecture_fr.md).
+La structure de l'application, le flux des requêtes, les filtres, la session, PDO et les templates sont décrits dans le [guide d'architecture](../reference/architecture_fr.md).
 
 ## Vérifications
 

@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../architecture.md) | [English](architecture_en.md) | [Español](architecture_es.md) | [中文](architecture_zh.md) | [Français](architecture_fr.md) | **Ausgewählt** |
+| [Русский](./architecture.md) | [English](./architecture_en.md) | [Español](./architecture_es.md) | [中文](./architecture_zh.md) | [Français](./architecture_fr.md) | **Ausgewählt** |
 
 Die Anwendung bleibt klein, aber die wichtigsten Verantwortungsgrenzen sind explizit: Der Einstiegspunkt baut Abhängigkeiten zusammen, Controller koordinieren den HTTP-Ablauf, der Filter verwaltet Kriterien und Session-Zustand, das Repository liest Daten und Templates sind ausschließlich für die Darstellung zuständig.
 

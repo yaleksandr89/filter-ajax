@@ -27,7 +27,7 @@ Merci de votre intérêt pour AJAX Filter. Le projet est petit ; les changements
 - Les modes `schema` et `demo` ne sont appliqués que lors de l'initialisation d'un nouveau volume MariaDB.
 - Les changements ne doivent pas ajouter de framework layer, ORM, conteneur DI, API séparée, retry/cache/fallback automatiques ou autre nouveau sous-système sans décision distincte.
 
-La structure de l'application est décrite dans le [guide d'architecture](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/architecture_fr.md), tandis que le démarrage local et les vérifications sont détaillés dans le [guide de développement](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_fr.md).
+La structure de l'application est décrite dans le [guide d'architecture](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/reference/architecture_fr.md), tandis que le démarrage local et les vérifications sont détaillés dans le [guide de développement](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_fr.md).
 
 ## Branches
 
@@ -60,7 +60,7 @@ Avant un Pull Request, exécutez les vérifications liées à votre modification
 | Comportement PHP de l'application | `make php CMD="tests/run.php"` |
 | Comportement HTTP/runtime du stack démarré | `make smoke` |
 
-Pour le démarrage du projet et la liste complète des commandes Make, consultez le [guide de développement](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_fr.md).
+Pour le démarrage du projet et la liste complète des commandes Make, consultez le [guide de développement](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_fr.md).
 
 Si la modification touche le mode de base ou son initialisation, vérifiez-la avec un nouveau volume. `make db-reinit` ne supprime que les données du volume de base du projet Compose courant et doit être utilisé volontairement.
 

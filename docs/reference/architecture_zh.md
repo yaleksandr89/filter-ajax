@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../architecture.md) | [English](architecture_en.md) | [Español](architecture_es.md) | **已选** | [Français](architecture_fr.md) | [Deutsch](architecture_de.md) |
+| [Русский](./architecture.md) | [English](./architecture_en.md) | [Español](./architecture_es.md) | **已选** | [Français](./architecture_fr.md) | [Deutsch](./architecture_de.md) |
 
 应用保持精简，但主要职责边界是明确的：entry point 负责组装依赖，controller 协调 HTTP 流程，filter 管理筛选条件和 session，repository 负责读取数据，template 只负责展示。
 

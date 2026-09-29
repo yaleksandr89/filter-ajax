@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| **Выбран** | [English](langs/development_en.md) | [Español](langs/development_es.md) | [中文](langs/development_zh.md) | [Français](langs/development_fr.md) | [Deutsch](langs/development_de.md) |
+| **Выбран** | [English](./development_en.md) | [Español](./development_es.md) | [中文](./development_zh.md) | [Français](./development_fr.md) | [Deutsch](./development_de.md) |
 
 ## Требования к хосту
 
@@ -18,9 +18,9 @@ PHP, MariaDB и Xdebug отдельно на хост устанавливать
 
 ## Запуск без Docker
 
-Проект можно подключить к доступной MariaDB с PHP 8.5, расширением PDO MySQL и PHP-FPM. Создайте базу, выполните [`docker/mariadb/schema.sql`](../docker/mariadb/schema.sql) и при необходимости [`docker/mariadb/demo-data.sql`](../docker/mariadb/demo-data.sql), затем настройте `config/database.php` или переменные `DB_*`.
+Проект можно подключить к доступной MariaDB с PHP 8.5, расширением PDO MySQL и PHP-FPM. Создайте базу, выполните [`docker/mariadb/schema.sql`](../../docker/mariadb/schema.sql) и при необходимости [`docker/mariadb/demo-data.sql`](../../docker/mariadb/demo-data.sql), затем настройте `config/database.php` или переменные `DB_*`.
 
-Веб-сервер должен указывать document root на `public/`. Для Nginx с локальным Unix socket PHP-FPM используйте и адаптируйте [справочный пример](examples/nginx-configuration.conf): он направляет обычные URI в front controller и не открывает прямые PHP-URI.
+Веб-сервер должен указывать document root на `public/`. Для Nginx с локальным Unix socket PHP-FPM используйте и адаптируйте [справочный пример](../examples/nginx-configuration.conf): он направляет обычные URI в front controller и не открывает прямые PHP-URI.
 
 ## Первый запуск в Docker
 
@@ -94,7 +94,7 @@ PHP, MariaDB и Xdebug отдельно на хост устанавливать
 
 ## Конфигурация БД и приоритеты
 
-Для не-Docker запуска скопируйте [`config/database.php.example`](../config/database.php.example) в `config/database.php`. Этот локальный файл исключён из Git. Команда: `cp config/database.php.example config/database.php`.
+Для не-Docker запуска скопируйте [`config/database.php.example`](../../config/database.php.example) в `config/database.php`. Этот локальный файл исключён из Git. Команда: `cp config/database.php.example config/database.php`.
 
 Для `host`, `port` и `charset` уже заданы базовые значения: `127.0.0.1`, `3306` и `utf8mb4`. Имя базы, пользователя и пароль нужно указать в `config/database.php` или через переменные окружения.
 

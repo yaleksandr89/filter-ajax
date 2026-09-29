@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../development.md) | [English](development_en.md) | [Español](development_es.md) | **已选** | [Français](development_fr.md) | [Deutsch](development_de.md) |
+| [Русский](./development.md) | [English](./development_en.md) | [Español](./development_es.md) | **已选** | [Français](./development_fr.md) | [Deutsch](./development_de.md) |
 
 ## 主机要求
 

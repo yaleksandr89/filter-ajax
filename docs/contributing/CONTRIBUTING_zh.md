@@ -27,7 +27,7 @@
 - `schema` 和 `demo` 模式只在初始化新的 MariaDB volume 时应用。
 - 未经单独决策，改动不得增加 framework layer、ORM、DI container、独立 API、自动 retry/cache/fallback 或其他新子系统。
 
-应用结构见[架构说明](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/architecture_zh.md)，本地启动与检查见[开发指南](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_zh.md)。
+应用结构见[架构说明](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/reference/architecture_zh.md)，本地启动与检查见[开发指南](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_zh.md)。
 
 ## 分支
 
@@ -60,7 +60,7 @@ chore: 更新 CI 配置
 | PHP 应用行为 | `make php CMD="tests/run.php"` |
 | 已启动 stack 的 HTTP/runtime 行为 | `make smoke` |
 
-项目启动和完整 Make 命令列表见[开发指南](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/langs/development_zh.md)。
+项目启动和完整 Make 命令列表见[开发指南](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development_zh.md)。
 
 如果改动影响数据库模式或数据库初始化，请使用新的 volume 验证。`make db-reinit` 只删除当前 Compose 项目的数据库 volume 数据，必须有意识地使用。
 
