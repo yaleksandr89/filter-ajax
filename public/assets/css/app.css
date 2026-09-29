@@ -94,7 +94,9 @@ html {
 }
 
 body {
+    display: flex;
     min-height: 100vh;
+    flex-direction: column;
     margin: 0;
     background: var(--color-bg);
     color: var(--color-text);
@@ -567,6 +569,7 @@ h2 {
 }
 
 .app-footer {
+    margin-top: auto;
     border-top: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text-soft);
