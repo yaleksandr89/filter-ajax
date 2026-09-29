@@ -8,13 +8,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/yaleksandr89/filter-ajax/ci.yml?style=flat-square&label=CI)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](../../LICENSE.md)
 
-<p align="center">
-  <img
-    src="../assets/filter-ajax-readme-cover.png"
-    alt="AJAX Filter — catalogue de produits avec filtrage AJAX en PHP natif"
-    width="100%"
-  >
-</p>
+![AJAX Filter — catalogue de produits avec filtrage AJAX en PHP natif](../assets/filter-ajax-readme-cover.png)
 
 ## Choisir la langue
 
