@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../development.md) | [English](development_en.md) | [Español](development_es.md) | [中文](development_zh.md) | **Sélectionné** | [Deutsch](development_de.md) |
+| [Русский](./development.md) | [English](./development_en.md) | [Español](./development_es.md) | [中文](./development_zh.md) | **Sélectionné** | [Deutsch](./development_de.md) |
 
 ## Prérequis sur l'hôte
 

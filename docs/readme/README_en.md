@@ -10,7 +10,7 @@
 
 <p align="center">
   <img
-    src="../img/filter-ajax-readme-cover.png"
+    src="../assets/filter-ajax-readme-cover.png"
     alt="AJAX Filter — product catalog with AJAX filtering in plain PHP"
     width="100%"
   >
@@ -20,7 +20,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../../README.md) | **Selected** | [Español](README_es.md) | [中文](README_zh.md) | [Français](README_fr.md) | [Deutsch](README_de.md) |
+| [Русский](../../README.md) | **Selected** | [Español](./README_es.md) | [中文](./README_zh.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) |
 
 `AJAX Filter` is a small PHP catalog where products are filtered by category, color, and weight without reloading the page. It is a compact example of PHP, PDO, MariaDB, and native JavaScript working together, without Composer or frontend libraries.
 
@@ -43,11 +43,11 @@ You need Git, Docker with Compose v2, and `make`.
 | 3 | `make build` | Build the local Docker images. |
 | 4 | `make up` | Start the stack and wait for the services to become ready. |
 
-Open [http://127.0.0.1:8080](http://127.0.0.1:8080). `DB_MODE=demo` is used by default; for an empty schema, run `make up DB_MODE=schema` with a new volume. Volume handling, configuration, and diagnostics are described in the [development guide](development_en.md).
+Open [http://127.0.0.1:8080](http://127.0.0.1:8080). `DB_MODE=demo` is used by default; for an empty schema, run `make up DB_MODE=schema` with a new volume. Volume handling, configuration, and diagnostics are described in the [development guide](../guides/development_en.md).
 
 ## Architecture and project structure
 
-The application structure, request flow, filters, session handling, PDO, and templates are described in the separate [architecture guide](architecture_en.md).
+The application structure, request flow, filters, session handling, PDO, and templates are described in the separate [architecture guide](../reference/architecture_en.md).
 
 ## Checks
 

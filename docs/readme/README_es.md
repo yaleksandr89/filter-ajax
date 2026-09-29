@@ -10,7 +10,7 @@
 
 <p align="center">
   <img
-    src="../img/filter-ajax-readme-cover.png"
+    src="../assets/filter-ajax-readme-cover.png"
     alt="AJAX Filter — catálogo de productos con filtrado AJAX en PHP puro"
     width="100%"
   >
@@ -20,7 +20,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../../README.md) | [English](README_en.md) | **Seleccionado** | [中文](README_zh.md) | [Français](README_fr.md) | [Deutsch](README_de.md) |
+| [Русский](../../README.md) | [English](./README_en.md) | **Seleccionado** | [中文](./README_zh.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) |
 
 `AJAX Filter` es un pequeño catálogo en PHP donde los productos se filtran por categoría, color y peso sin recargar la página. Es un ejemplo compacto de PHP, PDO, MariaDB y JavaScript nativo trabajando juntos, sin Composer ni bibliotecas frontend.
 
@@ -43,11 +43,11 @@ Se necesitan Git, Docker con Compose v2 y `make`.
 | 3 | `make build` | Construir las imágenes Docker locales. |
 | 4 | `make up` | Iniciar el stack y esperar a que los servicios estén listos. |
 
-Abre [http://127.0.0.1:8080](http://127.0.0.1:8080). De forma predeterminada se usa `DB_MODE=demo`; para un esquema vacío, ejecuta `make up DB_MODE=schema` con un volumen nuevo. El trabajo con volúmenes, la configuración y el diagnóstico se describen en la [guía de desarrollo](development_es.md).
+Abre [http://127.0.0.1:8080](http://127.0.0.1:8080). De forma predeterminada se usa `DB_MODE=demo`; para un esquema vacío, ejecuta `make up DB_MODE=schema` con un volumen nuevo. El trabajo con volúmenes, la configuración y el diagnóstico se describen en la [guía de desarrollo](../guides/development_es.md).
 
 ## Arquitectura y estructura del proyecto
 
-La estructura de la aplicación, el flujo de solicitudes, los filtros, la sesión, PDO y las plantillas se describen en la [guía de arquitectura](architecture_es.md).
+La estructura de la aplicación, el flujo de solicitudes, los filtros, la sesión, PDO y las plantillas se describen en la [guía de arquitectura](../reference/architecture_es.md).
 
 ## Comprobaciones
 

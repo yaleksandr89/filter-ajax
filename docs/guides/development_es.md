@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../development.md) | [English](development_en.md) | **Seleccionado** | [中文](development_zh.md) | [Français](development_fr.md) | [Deutsch](development_de.md) |
+| [Русский](./development.md) | [English](./development_en.md) | **Seleccionado** | [中文](./development_zh.md) | [Français](./development_fr.md) | [Deutsch](./development_de.md) |
 
 ## Requisitos del host
 

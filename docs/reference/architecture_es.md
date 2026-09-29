@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../architecture.md) | [English](architecture_en.md) | **Seleccionado** | [中文](architecture_zh.md) | [Français](architecture_fr.md) | [Deutsch](architecture_de.md) |
+| [Русский](./architecture.md) | [English](./architecture_en.md) | **Seleccionado** | [中文](./architecture_zh.md) | [Français](./architecture_fr.md) | [Deutsch](./architecture_de.md) |
 
 La aplicación sigue siendo pequeña, pero sus principales límites de responsabilidad son explícitos: el punto de entrada construye las dependencias, los controladores coordinan el flujo HTTP, el filtro gestiona los criterios y la sesión, el repositorio lee los datos y las plantillas se ocupan únicamente de la presentación.
 

@@ -27,7 +27,7 @@
 - Режимы `schema` и `demo` применяются только при инициализации нового тома MariaDB.
 - Изменения не должны добавлять framework layer, ORM, DI-контейнер, отдельный API, автоматические retry/cache/fallback или другие новые подсистемы без отдельного решения.
 
-Подробнее устройство приложения описано в [документе об архитектуре](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/architecture.md), а локальный запуск и проверки — в [руководстве по разработке](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/development.md).
+Подробнее устройство приложения описано в [документе об архитектуре](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/reference/architecture.md), а локальный запуск и проверки — в [руководстве по разработке](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development.md).
 
 ## Ветки
 
@@ -60,7 +60,7 @@ chore: обновить конфигурацию CI
 | PHP-поведение приложения | `make php CMD="tests/run.php"` |
 | HTTP/runtime-поведение запущенного стека | `make smoke` |
 
-Для запуска проекта и полного списка Make-команд используйте [руководство по разработке](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/development.md).
+Для запуска проекта и полного списка Make-команд используйте [руководство по разработке](https://github.com/yaleksandr89/filter-ajax/blob/master/docs/guides/development.md).
 
 Если изменение затрагивает режим базы или её инициализацию, проверяйте его на новом томе. `make db-reinit` удаляет данные только из тома базы текущего Compose-проекта и должен использоваться осознанно.
 

@@ -10,7 +10,7 @@
 
 <p align="center">
   <img
-    src="docs/img/filter-ajax-readme-cover.png"
+    src="docs/assets/filter-ajax-readme-cover.png"
     alt="AJAX Filter — каталог товаров с AJAX-фильтрацией на чистом PHP"
     width="100%"
   >
@@ -20,7 +20,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| **Выбран** | [English](docs/langs/README_en.md) | [Español](docs/langs/README_es.md) | [中文](docs/langs/README_zh.md) | [Français](docs/langs/README_fr.md) | [Deutsch](docs/langs/README_de.md) |
+| **Выбран** | [English](./docs/readme/README_en.md) | [Español](./docs/readme/README_es.md) | [中文](./docs/readme/README_zh.md) | [Français](./docs/readme/README_fr.md) | [Deutsch](./docs/readme/README_de.md) |
 
 `AJAX Filter` — небольшой PHP-каталог, в котором товары фильтруются по категории, цвету и весу без перезагрузки страницы. Это компактный пример связки PHP, PDO, MariaDB и нативного JavaScript — без Composer и frontend-библиотек.
 
@@ -43,11 +43,11 @@
 | 3 | `make build` | Собрать локальные Docker-образы. |
 | 4 | `make up` | Запустить стек и дождаться готовности сервисов. |
 
-Откройте [http://127.0.0.1:8080](http://127.0.0.1:8080). По умолчанию запускается `DB_MODE=demo`; для пустой схемы используйте `make up DB_MODE=schema` на новом томе. Подробности о томах, настройке и диагностике — в [руководстве по разработке](docs/development.md).
+Откройте [http://127.0.0.1:8080](http://127.0.0.1:8080). По умолчанию запускается `DB_MODE=demo`; для пустой схемы используйте `make up DB_MODE=schema` на новом томе. Подробности о томах, настройке и диагностике — в [руководстве по разработке](./docs/guides/development.md).
 
 ## Архитектура и структура проекта
 
-С устройством приложения, потоком запросов и работой с фильтрами, сессией, PDO и шаблонами можно познакомиться в отдельном [описании архитектуры](docs/architecture.md).
+С устройством приложения, потоком запросов и работой с фильтрами, сессией, PDO и шаблонами можно познакомиться в отдельном [описании архитектуры](./docs/reference/architecture.md).
 
 ## Проверки
 

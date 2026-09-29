@@ -4,7 +4,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| [Русский](../architecture.md) | [English](architecture_en.md) | [Español](architecture_es.md) | [中文](architecture_zh.md) | **Sélectionné** | [Deutsch](architecture_de.md) |
+| [Русский](./architecture.md) | [English](./architecture_en.md) | [Español](./architecture_es.md) | [中文](./architecture_zh.md) | **Sélectionné** | [Deutsch](./architecture_de.md) |
 
 L'application reste petite, mais ses principales frontières de responsabilité sont explicites : le point d'entrée assemble les dépendances, les contrôleurs coordonnent le flux HTTP, le filtre gère les critères et la session, le repository lit les données et les templates ne s'occupent que de la présentation.
 
