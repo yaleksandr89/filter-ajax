@@ -1,0 +1,71 @@
+name: Bug report / Сообщить об ошибке
+description: Report a reproducible problem with AJAX Filter / Сообщить о воспроизводимой проблеме AJAX Filter
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a problem. / Спасибо, что нашли время сообщить о проблеме.
+
+        Do not publish passwords, tokens, production configuration, personal data, or other sensitive information. / Не публикуйте пароли, токены, production-конфигурацию, персональные данные и другие чувствительные сведения.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary / Краткое описание
+      description: What happened? / Что произошло?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps / Шаги для воспроизведения
+      description: Describe the smallest sequence that reproduces the problem. / Опишите минимальную последовательность действий для воспроизведения проблемы.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result / Ожидаемый результат
+      description: What did you expect to happen? / Что должно было произойти?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result / Фактический результат
+      description: What happened instead? / Что произошло на самом деле?
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / Окружение
+      description: Include OS, Docker/Compose version, PHP/runtime mode, and browser when relevant. / Укажите ОС, версию Docker/Compose, режим запуска PHP и браузер, если это относится к проблеме.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs or additional context / Очищенные логи или дополнительный контекст
+      description: Remove passwords, tokens, production configuration, personal data, and other sensitive information. / Удалите пароли, токены, production-конфигурацию, персональные данные и другие чувствительные сведения.
+      render: text
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation / Подтверждение
+      options:
+        - label: I can reproduce the problem on the latest `master` or the latest release. / Я могу воспроизвести проблему на последней версии `master` или последнем релизе.
+          required: true
+        - label: I searched existing Issues for the same problem. / Я проверил(а) существующие Issues на наличие такой проблемы.
+          required: true

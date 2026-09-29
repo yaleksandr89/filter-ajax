@@ -1,13 +1,17 @@
 # AJAX Filter
 
 [![Source Code](https://img.shields.io/badge/source-yaleksandr89%2Ffilter--ajax-blue.svg?style=flat-square)](https://github.com/yaleksandr89/filter-ajax)
-[![CI](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml/badge.svg)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
+[![PHP](https://img.shields.io/badge/PHP-8.5-777BB4.svg?style=flat-square&logo=php&logoColor=white)](https://www.php.net/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-Native-F7DF1E.svg?style=flat-square&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![MariaDB](https://img.shields.io/badge/MariaDB-12.3-003545.svg?style=flat-square&logo=mariadb&logoColor=white)](https://mariadb.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![CI](https://img.shields.io/github/actions/workflow/status/yaleksandr89/filter-ajax/ci.yml?style=flat-square&label=CI)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 <p align="center">
   <img
     src="docs/img/filter-ajax-readme-cover.png"
-    alt="AJAX Filter — secure dynamic filtering for PHP with AJAX and database-backed lists"
+    alt="AJAX Filter — каталог товаров с AJAX-фильтрацией на чистом PHP"
     width="100%"
   >
 </p>
@@ -18,59 +22,62 @@
 |---|---|---|---|---|---|
 | **Выбран** | [English](docs/langs/README_en.md) | [Español](docs/langs/README_es.md) | [中文](docs/langs/README_zh.md) | [Français](docs/langs/README_fr.md) | [Deutsch](docs/langs/README_de.md) |
 
-## Описание
+`AJAX Filter` — небольшой PHP-каталог, в котором товары фильтруются по категории, цвету и весу без перезагрузки страницы. Это компактный пример связки PHP, PDO, MariaDB и нативного JavaScript — без Composer и frontend-библиотек.
 
-`AJAX Filter` — небольшой демонстрационный PHP-проект с фильтрацией товаров по категории, цвету и весу без перезагрузки страницы. Клиентская часть использует нативный JavaScript и `fetch()`, серверная — PHP и PDO.
+## Возможности
 
-Проект намеренно не использует Composer или JavaScript-библиотеки и сохраняет простую структуру, подходящую для изучения базовой AJAX-фильтрации.
-
-## Стек
-
-- PHP 8.5
-- MySQL / MariaDB через PDO
-- Native JavaScript
-- Bootstrap 5.3.3
-- Nginx + PHP-FPM для приведённого примера запуска
+- Фильтрация товаров по категории, цвету и весу через `fetch()` без перезагрузки страницы.
+- Сохранение выбранных фильтров в PHP-сессии.
+- Асинхронный сброс всех активных фильтров.
+- Два режима базы данных: пустая схема и демонстрационные данные.
+- Локальный Docker-стек с Nginx, PHP-FPM, MariaDB и Xdebug.
 
 ## Быстрый старт
 
-1. Создайте базу данных и импортируйте [`docs/mysql-dump/ajax-filter.sql`](docs/mysql-dump/ajax-filter.sql).
-2. Скопируйте [`docs/examples/db-config.php.example`](docs/examples/db-config.php.example) в `app/models/database.php`.
-3. Укажите в `app/models/database.php` локальные параметры подключения к базе данных.
-4. Настройте document root веб-сервера на каталог `public/`. Пример для Nginx находится в [`docs/examples/nginx-configuration.conf`](docs/examples/nginx-configuration.conf).
-5. При необходимости измените путь `fastcgi_pass` в примере Nginx под установленный у вас PHP-FPM.
-6. Откройте приложение через настроенный локальный host.
+Нужны Git, Docker с Compose v2 и `make`.
 
-`app/models/database.php` исключён из Git и не должен содержать production credentials в репозитории.
+| Шаг | Команда | Назначение |
+|---|---|---|
+| 1 | `git clone https://github.com/yaleksandr89/filter-ajax.git` | Клонировать репозиторий. |
+| 2 | `cd filter-ajax` | Перейти в каталог проекта. |
+| 3 | `make build` | Собрать локальные Docker-образы. |
+| 4 | `make up` | Запустить стек и дождаться готовности сервисов. |
 
-## Как работает фильтрация
+Откройте [http://127.0.0.1:8080](http://127.0.0.1:8080). По умолчанию запускается `DB_MODE=demo`; для пустой схемы используйте `make up DB_MODE=schema` на новом томе. Подробности о томах, настройке и диагностике — в [руководстве по разработке](docs/development.md).
 
-При изменении любого фильтра браузер отправляет запрос на `/ajax-filter`. Сервер принимает только поддерживаемые поля `category`, `color` и `weight`, сохраняет активные фильтры в сессии и выполняет параметризованный PDO-запрос.
+## Архитектура и структура проекта
 
-<details>
-  <summary>Демонстрация фильтрации</summary>
-
-![AJAX Filter demo](docs/img/ajax-filter-main.gif)
-</details>
-
-## Переключение темы
-
-Интерфейс поддерживает светлую, тёмную и системную темы средствами Bootstrap.
-
-<details>
-  <summary>Демонстрация переключения темы</summary>
-
-![AJAX Filter theme demo](docs/img/ajax-filter-theme-color.gif)
-</details>
+С устройством приложения, потоком запросов и работой с фильтрами, сессией, PDO и шаблонами можно познакомиться в отдельном [описании архитектуры](docs/architecture.md).
 
 ## Проверки
 
-GitHub Actions проверяет:
+Основные проверки собраны в Makefile:
 
-- синтаксис PHP;
-- синтаксис JavaScript;
-- regression tests для фильтров, SQL-параметризации, controller validation и HTML escaping.
+| Проверка | Команда |
+|---|---|
+| Итоговая Compose-конфигурация | `make config` |
+| Регрессионные PHP-тесты | `make php CMD="tests/run.php"` |
+| Runtime smoke уже запущенного стека | `make smoke` |
 
-## Лицензия
+CI для push и pull request в `master` проверяет PHP и JavaScript, регрессионные тесты, Docker-конфигурацию и оба режима базы.
 
-Проект распространяется по лицензии [MIT](LICENSE.md).
+## Что намеренно оставлено простым
+
+- Нет PHP-фреймворка и ORM.
+- Нет Composer-пакетов.
+- Нет JavaScript-зависимостей и frontend-фреймворка.
+- Нет отдельного API-слоя.
+
+Цель проекта — показать небольшой законченный поток фильтрации на базовых возможностях PHP, PDO и нативного JavaScript.
+
+## Обратная связь
+
+- Воспроизводимые ошибки — [GitHub Issues](https://github.com/yaleksandr89/filter-ajax/issues).
+- Вопросы и идеи — [GitHub Discussions](https://github.com/yaleksandr89/filter-ajax/discussions).
+
+---
+
+<p align="center">
+  Если проект оказался полезен, поставьте звезду на GitHub — так его будет проще найти другим разработчикам.<br>
+  🤘
+</p>

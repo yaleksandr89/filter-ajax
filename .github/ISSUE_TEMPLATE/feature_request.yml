@@ -1,0 +1,44 @@
+name: Change proposal / Предложить изменение
+description: Propose a concrete scoped improvement for AJAX Filter / Предложить конкретное ограниченное улучшение AJAX Filter
+title: "[Proposal]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Questions and broad ideas are better suited for GitHub Discussions. Use this form for a concrete change with a clear problem and expected behavior. / Вопросы и общие идеи лучше обсуждать в GitHub Discussions. Эта форма предназначена для конкретного изменения с понятной проблемой и ожидаемым поведением.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case / Проблема или сценарий использования
+      description: What problem are you trying to solve, and who encounters it? / Какую задачу вы хотите решить и кто с ней сталкивается?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior / Предлагаемое поведение
+      description: What should change from the user's or developer's point of view? / Что должно измениться с точки зрения пользователя или разработчика?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives / Альтернативы
+      description: What alternatives or workarounds have you considered? / Какие варианты или обходные пути уже рассматривались?
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Affected scope / Границы задачи
+      description: Note whether the proposal affects PHP behavior, JavaScript, Docker, database initialization, documentation, security, or UI. / Укажите, влияет ли предложение на PHP-поведение, JavaScript, Docker, инициализацию БД, документацию, безопасность или интерфейс.
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation / Подтверждение
+      options:
+        - label: I searched existing Discussions and Issues for the same proposal. / Я проверил(а) существующие Discussions и Issues на наличие такого предложения.
+          required: true

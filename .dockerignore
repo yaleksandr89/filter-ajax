@@ -1,0 +1,10 @@
+*
+!.dockerignore
+!app/
+!app/**
+!public/
+!public/**
+!templates/
+!templates/**
+!docker/
+!docker/**
