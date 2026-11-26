@@ -1,4 +1,4 @@
-FROM php:8.5.9-fpm-trixie AS xdebug-builder
+FROM php:8.5.13-fpm-trixie AS xdebug-builder
 
 ARG PIE_VERSION=1.4.10
 ARG PIE_SHA256=b88792235c8e80be568436d4cb043b49fd1869c89b64e83d23e2882ae19d70a8
@@ -24,7 +24,7 @@ RUN set -eux; \
     rm -f /tmp/pie.phar
 
 
-FROM php:8.5.9-fpm-trixie
+FROM php:8.5.13-fpm-trixie
 
 RUN docker-php-ext-install pdo_mysql
 

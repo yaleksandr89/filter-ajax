@@ -33,11 +33,13 @@ final readonly class DatabaseConfig
         private string $user,
         private string $password,
         private string $charset,
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws RuntimeException When local or environment configuration is malformed.
+     * RU: Исключение возникает при некорректной конфигурации из файла или переменных окружения.
+     * EN: An exception is thrown when local or environment configuration is malformed.
+     *
+     * @throws RuntimeException
      */
     public static function load(string $configFile): self
     {
@@ -52,7 +54,7 @@ final readonly class DatabaseConfig
                 throw new RuntimeException('The local database configuration file is not readable.');
             }
 
-            $localValues = (static fn (string $file): mixed => require $file)($configFile);
+            $localValues = (static fn(string $file): mixed => require $file)($configFile);
             if (!is_array($localValues)) {
                 throw new RuntimeException('The local database configuration must return an array.');
             }

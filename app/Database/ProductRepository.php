@@ -11,8 +11,7 @@ final readonly class ProductRepository
     public function __construct(
         private PDO $pdo,
         private ProductQueryBuilder $queryBuilder,
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, string> $criteria

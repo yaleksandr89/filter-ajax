@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 /**
+ * RU: $content — Доверенный HTML, сформированный ранее.
+ * EN: $content is trusted, already-rendered HTML.
+ *
  * @var \App\View\ViewRenderer $this
  * @var string $title
- * @var string $content Trusted, already-rendered HTML.
+ * @var string $content
  */
 ?>
 <!doctype html>

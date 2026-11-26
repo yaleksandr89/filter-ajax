@@ -15,12 +15,14 @@ final readonly class HomeController
         private ProductRepository $repository,
         private ProductFilter $filter,
         private ViewRenderer $renderer,
-    ) {
-    }
+    ) {}
 
     /**
+     * RU: Исключение возникает при ошибке работы с данными или вывода шаблона.
+     * EN: An exception is thrown when persistence or template rendering fails.
+     *
      * @param array<string, mixed> $session
-     * @throws Throwable When persistence or template rendering fails.
+     * @throws Throwable
      */
     public function index(array $session): string
     {

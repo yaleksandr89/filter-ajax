@@ -110,6 +110,18 @@ assertSameValue(
     'Active criteria must contain only normalized supported session filters.',
 );
 
+$filter->apply($session, $filter->normalize([
+    'category' => ' Laptop ',
+    'color' => ['all'],
+    'weight' => ' ',
+    'unrelated' => 'all',
+]));
+assertSameValue(
+    ['color' => 'Black', 'unrelated' => 'keep', 'weight' => '5kg', 'category' => 'Laptop'],
+    $session,
+    'Malformed and unknown query keys must not modify stored criteria or unrelated session data.',
+);
+
 $resetSession = [
     'category' => 'Laptop',
     'color' => 'Black',
@@ -233,7 +245,7 @@ try {
     ]);
     assertThrows(
         RuntimeException::class,
-        static fn (): DatabaseConfig => DatabaseConfig::load($unsupportedConfigFile),
+        static fn(): DatabaseConfig => DatabaseConfig::load($unsupportedConfigFile),
         'Unsupported local database configuration keys must fail explicitly.',
     );
 
@@ -247,7 +259,7 @@ try {
     ]);
     assertThrows(
         RuntimeException::class,
-        static fn (): DatabaseConfig => DatabaseConfig::load($invalidPortConfigFile),
+        static fn(): DatabaseConfig => DatabaseConfig::load($invalidPortConfigFile),
         'Invalid database ports must fail explicitly.',
     );
 } finally {
@@ -268,6 +280,23 @@ assertSameValue(
     $renderer->escape('<script>"\'&'),
     'HTML special characters and both quote styles must be escaped.',
 );
+
+$escapedProductHtml = $renderer->render('products', [
+    'products' => [[
+        'category' => '<category>',
+        'title' => '<title>',
+        'color' => '<color>',
+        'weight' => '<weight>',
+    ]],
+]);
+foreach (['category', 'title', 'color', 'weight'] as $field) {
+    assertSameValue(
+        true,
+        str_contains($escapedProductHtml, '&lt;' . $field . '&gt;')
+            && !str_contains($escapedProductHtml, '<' . $field . '>'),
+        'Rendered product fields must be escaped.',
+    );
+}
 
 assertSameValue(
     true,

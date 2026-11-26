@@ -8,9 +8,7 @@ use PDO;
 
 final readonly class ConnectionFactory
 {
-    public function __construct(private DatabaseConfig $config)
-    {
-    }
+    public function __construct(private DatabaseConfig $config) {}
 
     public function create(): PDO
     {
