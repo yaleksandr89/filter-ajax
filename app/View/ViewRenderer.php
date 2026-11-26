@@ -28,8 +28,11 @@ final readonly class ViewRenderer
     }
 
     /**
+     * RU: Исключение возникает при ошибке выполнения шаблона.
+     * EN: An exception is thrown when template execution fails.
+     *
      * @param array<string, mixed> $data
-     * @throws Throwable When template execution fails.
+     * @throws Throwable
      */
     public function render(string $template, array $data = []): string
     {

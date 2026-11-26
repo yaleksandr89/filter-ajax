@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const selects = Array.from(document.querySelectorAll('.filter-field select'));
     const resultsBlock = document.querySelector('[data-filters-block]');
     const resetButton = document.querySelector('[data-filter-reset]');
-    let activeRequest = null;
+    let requestInFlight = false;
+    let pendingQuery = null;
 
     if (!resultsBlock || selects.length === 0) {
         return;
@@ -20,65 +21,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function refreshResults(query) {
-        if (activeRequest) {
-            activeRequest.abort();
+    async function refreshResults() {
+        updateResetState();
+        pendingQuery = new URLSearchParams(selects.map(function(select) {
+            return [select.name, select.value];
+        }));
+
+        if (requestInFlight) {
+            return;
         }
 
-        const controller = new AbortController();
-        activeRequest = controller;
+        requestInFlight = true;
         resultsBlock.setAttribute('aria-busy', 'true');
 
-        return fetch('/ajax-filter?' + query.toString(), {signal: controller.signal})
-            .then(function(response) {
+        while (pendingQuery !== null) {
+            const query = pendingQuery;
+            pendingQuery = null;
+
+            try {
+                const response = await fetch('/ajax-filter?' + query.toString());
                 if (!response.ok) {
                     throw new Error('Error when executing the request: ' + response.status);
                 }
 
-                return response.text();
-            })
-            .then(function(result) {
-                resultsBlock.innerHTML = result;
+                const result = await response.text();
+                if (pendingQuery === null) {
+                    resultsBlock.innerHTML = result;
 
-                if (window.FilterAjaxUi) {
-                    window.FilterAjaxUi.refreshLanguage(resultsBlock);
+                    if (window.FilterAjaxUi) {
+                        window.FilterAjaxUi.refreshLanguage(resultsBlock);
+                    }
                 }
-            })
-            .catch(function(error) {
-                if (error.name !== 'AbortError') {
-                    console.error(error);
-                }
-            })
-            .finally(function() {
-                if (activeRequest === controller) {
-                    activeRequest = null;
-                    resultsBlock.removeAttribute('aria-busy');
-                }
-            });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        requestInFlight = false;
+        resultsBlock.removeAttribute('aria-busy');
     }
 
     selects.forEach(function(select) {
-        select.addEventListener('change', function() {
-            const query = new URLSearchParams({
-                [select.name]: select.value
-            });
-
-            updateResetState();
-            refreshResults(query);
-        });
+        select.addEventListener('change', refreshResults);
     });
 
     if (resetButton) {
         resetButton.addEventListener('click', function() {
-            const query = new URLSearchParams();
-
             selects.forEach(function(select) {
                 select.value = 'all';
-                query.set(select.name, 'all');
             });
 
-            updateResetState();
-            refreshResults(query);
+            refreshResults();
         });
     }
 

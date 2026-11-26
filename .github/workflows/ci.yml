@@ -7,19 +7,26 @@ on:
   pull_request:
     branches:
       - master
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
         with:
           php-version: '8.5'
           coverage: none
@@ -34,6 +41,9 @@ jobs:
         run: |
           find public/assets/js -maxdepth 1 -type f -name '*.js' -print0 \
             | xargs -0 -r -n1 node --check
+
+      - name: Run AJAX filter regression tests
+        run: node --test tests/ajax-filter.test.mjs
 
       - name: Run regression tests
         run: php tests/run.php
@@ -58,7 +68,9 @@ jobs:
       FILTER_AJAX_HTTP_PORT: 18080
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Build and start stack
         run: docker compose up --build --wait --wait-timeout 120
@@ -72,13 +84,17 @@ jobs:
           test "$(curl --silent --output /tmp/index.php.html --write-out '%{http_code}' http://127.0.0.1:18080/index.php)" = 404
           test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:18080/anything.php)" = 404
           if grep -Fq '<?php' /tmp/index.php.html; then exit 1; fi
-          docker compose exec -T php php -m | grep -Fx pdo_mysql
-          docker compose exec -T php php -m | grep -Fx xdebug
-          test "$(docker compose exec -T php php -r 'echo phpversion("xdebug");')" = 3.5.3
-          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.mode");')" = debug
-          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.start_with_request");')" = trigger
-          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.client_host");')" = host.docker.internal
-          test "$(docker compose exec -T php php -r 'echo ini_get("xdebug.client_port");')" = 9003
+          test "$(docker compose exec -T --user www-data php php -r 'echo PHP_VERSION;')" = 8.5.13
+          docker compose exec -T --user www-data php php tests/run.php
+          test "$(docker compose exec -T --user www-data -e DB_PORT=0 php php public/index.php 2>/tmp/php-error.log)" = 'Внутренняя ошибка сервера. / Internal server error.'
+          grep -Fq 'must be a valid TCP port' /tmp/php-error.log
+          docker compose exec -T --user www-data php php -m | grep -Fx pdo_mysql
+          docker compose exec -T --user www-data php php -m | grep -Fx xdebug
+          test "$(docker compose exec -T --user www-data php php -r 'echo phpversion("xdebug");')" = 3.5.3
+          test "$(docker compose exec -T --user www-data php php -r 'echo ini_get("xdebug.mode");')" = debug
+          test "$(docker compose exec -T --user www-data php php -r 'echo ini_get("xdebug.start_with_request");')" = trigger
+          test "$(docker compose exec -T --user www-data php php -r 'echo ini_get("xdebug.client_host");')" = host.docker.internal
+          test "$(docker compose exec -T --user www-data php php -r 'echo ini_get("xdebug.client_port");')" = 9003
           docker compose exec -T php getent hosts host.docker.internal
           docker compose exec -T nginx nginx -T 2>&1 | grep -Fqx '    access_log off;'
           docker compose exec -T nginx nginx -T 2>&1 | grep -Fqx '    error_log /dev/stderr warn;'
@@ -116,6 +132,38 @@ jobs:
           curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop' | grep -Fq 'product-card'
           curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Black&weight=3kg' | grep -Fq 'Atlas L300'
           curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Green&weight=9kg' | grep -Fq 'Ничего не найдено'
+
+          cookie_jar="$(mktemp)"
+          trap 'rm -f "$cookie_jar"' EXIT
+          request() {
+            curl --fail --silent --show-error --cookie "$cookie_jar" --cookie-jar "$cookie_jar" \
+              "http://127.0.0.1:18080$1"
+          }
+          assert_products() {
+            test "$(grep -Fc '<article class="product-card">' "$1")" = "$2"
+          }
+
+          request '/ajax-filter?category=Laptop&color=all&weight=all' > /tmp/session-filter.html
+          assert_products /tmp/session-filter.html 10
+          request '/ajax-filter?color=Black' > /tmp/session-filter.html
+          assert_products /tmp/session-filter.html 2
+          grep -Fq 'Atlas L300' /tmp/session-filter.html
+
+          request '/ajax-filter?category%5B%5D=all&color=%20&unexpected=all' > /tmp/session-malformed.html
+          cmp /tmp/session-filter.html /tmp/session-malformed.html
+          request '/' > /tmp/session-home.html
+          assert_products /tmp/session-home.html 2
+          grep -Fq 'Atlas L300' /tmp/session-home.html
+          home_options="$(tr '\n' ' ' < /tmp/session-home.html)"
+          grep -Eq 'value="Laptop"[[:space:]]+selected' <<< "$home_options"
+          grep -Eq 'value="Black"[[:space:]]+selected' <<< "$home_options"
+
+          request '/ajax-filter?color=all' > /tmp/session-filter.html
+          assert_products /tmp/session-filter.html 10
+          request '/ajax-filter?category=all&color=all&weight=all' > /tmp/session-filter.html
+          assert_products /tmp/session-filter.html 30
+          request '/' > /tmp/session-home.html
+          assert_products /tmp/session-home.html 30
 
       - name: Tear down stack
         if: always()

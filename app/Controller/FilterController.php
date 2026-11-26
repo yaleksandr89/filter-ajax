@@ -15,13 +15,15 @@ final readonly class FilterController
         private ProductRepository $repository,
         private ProductFilter $filter,
         private ViewRenderer $renderer,
-    ) {
-    }
+    ) {}
 
     /**
+     * RU: Исключение возникает при ошибке фильтрации, работы с данными или вывода шаблона.
+     * EN: An exception is thrown when filtering, persistence, or template rendering fails.
+     *
      * @param array<string, mixed> $query
      * @param array<string, mixed> $session
-     * @throws Throwable When filtering, persistence, or template rendering fails.
+     * @throws Throwable
      */
     public function filter(array $query, array &$session): string
     {

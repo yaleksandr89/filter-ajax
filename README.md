@@ -6,7 +6,7 @@
 [![MariaDB](https://img.shields.io/badge/MariaDB-12.3-003545.svg?style=flat-square&logo=mariadb&logoColor=white)](https://mariadb.org/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
 [![CI](https://img.shields.io/github/actions/workflow/status/yaleksandr89/filter-ajax/ci.yml?style=flat-square&label=CI)](https://github.com/yaleksandr89/filter-ajax/actions/workflows/ci.yml)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 ![AJAX Filter — каталог товаров с AJAX-фильтрацией на чистом PHP](docs/assets/filter-ajax-readme-cover.png)
 
@@ -14,7 +14,7 @@
 
 | Русский | English | Español | 中文 | Français | Deutsch |
 |---|---|---|---|---|---|
-| **Выбран** | [English](./docs/readme/README_en.md) | [Español](./docs/readme/README_es.md) | [中文](./docs/readme/README_zh.md) | [Français](./docs/readme/README_fr.md) | [Deutsch](./docs/readme/README_de.md) |
+| **Выбран** | [English](docs/langs/en/README.md) | [Español](docs/langs/es/README.md) | [中文](docs/langs/zh/README.md) | [Français](docs/langs/fr/README.md) | [Deutsch](docs/langs/de/README.md) |
 
 `AJAX Filter` — небольшой PHP-каталог, в котором товары фильтруются по категории, цвету и весу без перезагрузки страницы. Это компактный пример связки PHP, PDO, MariaDB и нативного JavaScript — без Composer и frontend-библиотек.
 
@@ -37,11 +37,21 @@
 | 3 | `make build` | Собрать локальные Docker-образы. |
 | 4 | `make up` | Запустить стек и дождаться готовности сервисов. |
 
-Откройте [http://127.0.0.1:8080](http://127.0.0.1:8080). По умолчанию запускается `DB_MODE=demo`; для пустой схемы используйте `make up DB_MODE=schema` на новом томе. Подробности о томах, настройке и диагностике — в [руководстве по разработке](./docs/guides/development.md).
+Откройте [http://127.0.0.1:8080](http://127.0.0.1:8080). По умолчанию запускается `DB_MODE=demo`; для пустой схемы используйте `make up DB_MODE=schema` на новом томе. Подробности о томах, настройке и диагностике — в [руководстве по разработке](docs/langs/ru/guides/development.md).
 
 ## Архитектура и структура проекта
 
-С устройством приложения, потоком запросов и работой с фильтрами, сессией, PDO и шаблонами можно познакомиться в отдельном [описании архитектуры](./docs/reference/architecture.md).
+```mermaid
+flowchart TD
+    A["Браузер: выбор фильтров"] --> B["Маршрутизация: public/index.php"]
+    B --> C["Контроллеры и сессия"]
+    C --> D["PDO и MariaDB"]
+    D --> C
+    C --> E["HTML-страница или фрагмент"]
+    E --> A
+```
+
+С устройством приложения, потоком запросов и работой с фильтрами, сессией, PDO и шаблонами можно познакомиться в отдельном [описании архитектуры](docs/langs/ru/reference/architecture.md).
 
 ## Проверки
 
@@ -53,7 +63,7 @@
 | Регрессионные PHP-тесты | `make php CMD="tests/run.php"` |
 | Runtime smoke уже запущенного стека | `make smoke` |
 
-CI для push и pull request в `master` проверяет PHP и JavaScript, регрессионные тесты, Docker-конфигурацию и оба режима базы.
+CI для push и pull request в `master` проверяет PHP и JavaScript, регрессионные тесты, Docker-конфигурацию и оба режима базы. CI также можно запустить вручную через Actions.
 
 ## Что намеренно оставлено простым
 

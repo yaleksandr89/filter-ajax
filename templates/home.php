@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /**
+ * RU: $productsHtml — Доверенный HTML списка товаров, сформированный ранее.
+ * EN: $productsHtml is trusted, already-rendered product-list HTML.
+ *
  * @var \App\View\ViewRenderer $this
  * @var list<array{category: string}> $categories
  * @var list<array{color: string}> $colors
  * @var list<array{weight: string}> $weights
  * @var array<string, string> $activeFilters
- * @var string $productsHtml Trusted, already-rendered product-list HTML.
+ * @var string $productsHtml
  */
 ?>
 <section class="filter-panel" aria-labelledby="filter-title">

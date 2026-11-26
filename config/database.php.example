@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-// Скопируйте этот файл в config/database.php и замените значения-заглушки.
-// Переменные окружения DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD и DB_CHARSET имеют приоритет над значениями из файла.
+// RU: Скопируйте этот файл в config/database.php и замените значения-заглушки.
+// RU: Переменные окружения DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD и DB_CHARSET имеют приоритет над значениями из файла.
+// EN: Copy this file to config/database.php and replace the placeholder values.
+// EN: DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, and DB_CHARSET override values from the file.
 return [
     'host' => '127.0.0.1',
     'port' => 3306,
