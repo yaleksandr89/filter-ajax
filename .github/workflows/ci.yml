@@ -96,8 +96,9 @@ jobs:
           test "$(docker compose exec -T --user www-data php php -r 'echo ini_get("xdebug.client_host");')" = host.docker.internal
           test "$(docker compose exec -T --user www-data php php -r 'echo ini_get("xdebug.client_port");')" = 9003
           docker compose exec -T php getent hosts host.docker.internal
-          docker compose exec -T nginx nginx -T 2>&1 | grep -Fqx '    access_log off;'
-          docker compose exec -T nginx nginx -T 2>&1 | grep -Fqx '    error_log /dev/stderr warn;'
+          docker compose exec -T nginx nginx -T > /tmp/nginx-config.txt 2>&1
+          grep -Fqx '    access_log off;' /tmp/nginx-config.txt
+          grep -Fqx '    error_log /dev/stderr warn;' /tmp/nginx-config.txt
           test "$(docker compose exec -T -e MYSQL_PWD=filter_ajax_local_password db mariadb -u filter_ajax filter_ajax -Nse 'SHOW TABLES' | tr '\n' ' ')" = 'categories colors products weights '
           test "$(docker inspect "$(docker compose ps -q nginx)" --format '{{json .NetworkSettings.Ports}}')" = '{"80/tcp":[{"HostIp":"127.0.0.1","HostPort":"18080"}]}'
           test "$(docker inspect "$(docker compose ps -q db)" --format '{{json .NetworkSettings.Ports}}')" = '{"3306/tcp":null}'
@@ -129,9 +130,12 @@ jobs:
           test "$(db_count colors)" = 6
           test "$(db_count weights)" = 5
           test "$(db_count products)" = 30
-          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop' | grep -Fq 'product-card'
-          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Black&weight=3kg' | grep -Fq 'Atlas L300'
-          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Green&weight=9kg' | grep -Fq 'Ничего не найдено'
+          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop' > /tmp/demo-filter.html
+          grep -Fq 'product-card' /tmp/demo-filter.html
+          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Black&weight=3kg' > /tmp/demo-filter.html
+          grep -Fq 'Atlas L300' /tmp/demo-filter.html
+          curl --fail --silent --show-error 'http://127.0.0.1:18080/ajax-filter?category=Laptop&color=Green&weight=9kg' > /tmp/demo-filter.html
+          grep -Fq 'Ничего не найдено' /tmp/demo-filter.html
 
           cookie_jar="$(mktemp)"
           trap 'rm -f "$cookie_jar"' EXIT
